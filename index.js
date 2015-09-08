@@ -125,14 +125,14 @@ function userColor(option){
 function printBrand(){
  if(terminal.brand){
   console.log(); 
-  console.log(terminalColors.brand(terminal.brand));
-  console.log(); 
+  process.stdout.write(terminalColors.brand(terminal.brand));
+ // console.log(); 
   }
 }
 //print the info message
 function infoSuccess(){
   if(terminal.info){ 
-  console.log(); 
+ // console.log(); 
   console.log(terminalColors.success(terminal.info));
   console.log(); 
   }
@@ -141,7 +141,7 @@ function infoSuccess(){
 
 function infoWarning(){
   if(terminal.info){
-  console.log(); 
+  //console.log(); 
   console.log(terminalColors.warning(terminal.info));
   console.log(); 
   }
@@ -149,7 +149,7 @@ function infoWarning(){
 
 function infoError(){
   if(terminal.info){
-  console.log(); 
+ // console.log(); 
   console.log(terminalColors.error(terminal.info));
   console.log();
   }   
@@ -210,19 +210,19 @@ if(bool!==false){
 
 function checkFooter(){
   if(terminal.footer){
-    printBlock(terminal.footer);
-    if(terminal.brand && terminal.footer.indexOf("brand")<=0){printBrand();}
+    printBlock(terminal.footer); 
+   /* if(terminal.brand && terminal.footer.indexOf("brand")<=0){printBrand();}
     if(terminal.logo && terminal.footer.indexOf("logo")<=0) printLogo();   
     if(terminal.copyright && terminal.footer.indexOf("copyright")<=0) printCopyright();
     if(terminal.info && terminal.footer.indexOf("info")<=0) printInfo();   
     if(terminal.symbolProgress && terminal.footer.indexOf("symbolProgress")<=0) printProgress();  
-    } 
+   */ } 
    
 }
 
 function checkHeader(){
   if(terminal.header){
-    printBlock(terminal.header);
+    printBlock(terminal.header);  
    /* if(terminal.brand && terminal.header.indexOf("brand")<=0){printBrand();}
     if(terminal.info && terminal.header.indexOf("info")<=0) printInfo(); 
     if(terminal.symbolProgress && terminal.header.indexOf("symbolProgress")<=0) printProgress();
@@ -240,8 +240,8 @@ function checkHeader(){
 
 function printBlock(block){
   for(var name in block){            
-
-       switch (terminal.header[name]){
+//console.log(block[name]);
+       switch (block[name]){
                 case 'brand':
                   printBrand();
                   break;
@@ -257,9 +257,7 @@ function printBlock(block){
                 case 'symbolProgress':
                   printProgress();
                   break;              
-                default:
-                  printMess();
-                  break;
+                
 
               }       
       
@@ -274,16 +272,16 @@ function printMess(){
 function printCopyright(){ 
 if(terminal.copyright){
   console.log(); 
-  console.log(terminalColors.copyright(terminal.copyright));
+  console.log(terminalColors.copyright("\xA9 "+terminal.copyright));
   console.log(); 
   }
 }
 
 function printLogo(){
 if(terminal.logo){
-  console.log(); 
+ // console.log(); 
   console.log(terminal.colors.logo(terminal.logo));
-  console.log(); 
+ // console.log(); 
   }
 }
 
@@ -316,11 +314,11 @@ function printInfo(){
 
 function aError(errorObject){
   if(errorObject.aux){
-  console.log(terminalColors.error("o "+errorObject.message)+ " " +terminalColors.aux(errorObject.aux));
+  console.log(terminalColors.error("o Error: "+errorObject.message)+ " " +terminalColors.aux(errorObject.aux));
   console.log();  
   }
   else{
-  console.log(terminalColors.error("o "+errorObject.message));
+  console.log(terminalColors.error("o Error: "+errorObject.message));
   console.log();
   }
     
