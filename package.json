@@ -1,0 +1,31 @@
+{
+  "name": "audrey-ii",
+  "version": "0.0.1",
+  "description": "Ask questions from CLI and Write answers to a file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ask",
+    "CLI",
+    "command",
+    "console",
+    "write",
+    "file"
+  ],
+  "author": "Lucas_C/llucbrell",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.1.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/llucbrell/jaskit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/llucbrell/jaskit/issues"
+  },
+  "homepage": "https://github.com/llucbrell/jaskit#readme"
+}
