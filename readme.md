@@ -2,16 +2,15 @@
 
 > View Control for CLI
 
+![](https://raw.githubusercontent.com/llucbrell/audrey2/master/audrey.png)
+
+
 Node module as an object factory. Create a VCCLI and apply the model-view-control on your nodeJS command line apps. 
 
 
 Feed Audrey with object errors after commands actions. This carnivorous plant get charge of the output console display and give a little sugar for your console users.
 
 Feed Audrey with a header, footer & data for displaying. She'll grow big and strong!
-
-
-![](https://raw.githubusercontent.com/llucbrell/audrey-2/master/captura.png)
-
 
 
 ## Install
@@ -50,6 +49,10 @@ audrey.feed("S001", "I'm Alive!");
 adrey.feed("s002", "This is an new kind of plant", cli.name);
 audrey.debug();
 ```
+
+
+![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura.png)
+
 
 ## Printing
 
@@ -110,35 +113,8 @@ var terminal={
           */
         }
 }
-
 ```
 
-## Change format!
-
-Change the user response with a JavaScript object and regular expressions.
-
-###Format object
->before property -- Add something before the user's answer.
-
->replace property -- Regular expression to match with the user'
-
->put property -- the text or characthers to put in place.
-
->after proprety -- Add something after the user's answer.
-
-```js
-var formatFor1={before: "", replace:/fine/ 
-                                 , put:"Ok", after:""};
-
-
-cli.ask("Hi.. How'r you?");
-      cli.header("JaSkIt.. Java-Script-Interface CLI");
-      cli.ask("Can I ask you somethin?");
- cli.change(1, formatFor1); //params(questionID, formatObjct)  
-      cli.ask("How about continue asking you..?");
-      cli.to("file.JSON");   
-      cli.end("Every little thing is gonna be alright!\n    y or n");
-```
 
 
 ## License
