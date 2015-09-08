@@ -7,83 +7,123 @@ var terminalColors={};
 //modules load
 var chalk= require('chalk');
 
+checkOptions();
 //set the colors of the terminal
-setColor(terminal.colors);
+setUserColors(terminal.colors);
 
+var ers;
+var warn;
+var suc;
+var mess="";
+//console.log(terminal);
 
-
-console.log(terminal);
-
-return{
-     //header error controller
-         success: function(){printStyle(); },
-         warning: function(){printHardly(); },
-           error: function(){printWoops(); },
+return{  
     //control error array
-            feed: function(index, message){ addControl(index, message);},
-//simple error messages
-    printSuccess: function(message){gSuccess(message);},
-    printWarning: function(message){gWarning(message);},
-      printError: function(message){gError(message);},
-           debug: function(program){printErrors(program);},
-      getIErrors: function(){return indexErrors;},
-      getMErrors: function(){return messageErrors;}
+            feed: function(index, message, aux){ addControl(index, message, aux);},
+    //simple error messages
+    printSuccess: function(message){aSuccess(message);},
+    printWarning: function(message){aWarning(message);},
+      printError: function(message){aError(message);},
+    //run the debuger and print into terminal
+           debug: function(bool){printErrors(bool);},
+       getErrors: function(){return terminal.errors;},
+           write: function(data){mess+=data;},
+       writeLine: function(data){mess+=data+"\n";}
 };
 
 
 
 //FUNCTIONS FOR THE CLI RESPONSE..
 
-
- function setColor(colorUser){
-  if(!colorUser){
-     
-      terminalColors={
-          info:chalk.grey, 
-          warning:chalk.yellow, 
-          err:chalk.red,
-          success: chalk.green, 
-          normal:chalk.white,
-          brand: chalk.blue
-          };
+function checkOptions(){
+  for(var option in terminal){
+    if(!terminal.colors.info){
+      terminal.colors.info= chalk.grey; 
+    }
+    if(!terminal.colors.warning){
+      terminal.colors.warning= chalk.yellow; 
+    }
+    if(!terminal.colors.error){
+      terminal.colors.error= chalk.red; 
+    }
+    if(!terminal.colors.brand){
+      terminal.colors.brand= chalk.blue; 
+    }
+    if(!terminal.colors.success){
+      terminal.colors.success= chalk.green; 
+    }
   }
-  else{
+}
 
 
-    console.log(terminal.colors);
-   terminal.colors.forEach(function(element){
+ function setUserColors(colorUser){
+ 
 
-      switch (element){
-            case 'red':
-              element=chalk.red;
-              break;
-            case 'green':
-              element=chalk.green;
-              break;
-            case 'yellow':
-              element=chalk.yellow;
-              break;
-            case 'blue':
-              element=chalk.blue;
-              break;
-            case 'grey':
-              element=chalk.grey;
-              break;
-            case 'white':
-              element=chalk.white;
-              break;     
-            default:
-              element=colorUser;
-              break;
-          }
-   });  
-   console.log(terminalColors);
-  }
+    for(var name in colorUser){
+      
+       switch (name){
+                case 'copyright':
+                  terminalColors.copyright=userColor(colorUser.copyright);
+                  break;
+                case 'info':
+                  terminalColors.info=userColor(colorUser.info);
+                  break;
+                case 'success':
+                  terminalColors.success=userColor(colorUser.success);
+                  break;
+                case 'warning':
+                  terminalColors.warning=userColor(colorUser.warning);
+                  break;
+                case 'error':
+                  terminalColors.error=userColor(colorUser.error);
+                  break;
+                case 'aux':
+                  terminalColors.aux=userColor(colorUser.aux);
+                  break;
+                case 'brand':
+                  terminalColors.brand=userColor(colorUser.brand);
+                  break;     
+              }
+        
+      
+      }
+  
+}
+
+
+function userColor(option){
+  var col;
+  
+   switch (option){
+          
+                  case 'red':
+                    col=chalk.red;
+                    break;
+                  case 'green':
+                    col=chalk.green;
+                    break;
+                  case 'yellow':
+                    col=chalk.yellow;
+                    break;
+                  case 'blue':
+                    col=chalk.blue;
+                    break;
+                  case 'grey':
+                    col=chalk.grey;
+                    break;
+                  case 'white':
+                    col=chalk.white;
+                    break;     
+                  default:
+                    col=option;
+                    break;
+                }
+                return col;
 }
 
 //print the ascii image brand
 function printBrand(){
-  if(terminal.brand){
+ if(terminal.brand){
   console.log(); 
   console.log(terminalColors.brand(terminal.brand));
   console.log(); 
@@ -110,22 +150,23 @@ function infoWarning(){
 function infoError(){
   if(terminal.info){
   console.log(); 
-  console.log(terminalColors.err(terminal.info));
+  console.log(terminalColors.error(terminal.info));
   console.log();
   }   
 }
 
 function addControl(ucode, umessage, uaux){
+  if(uaux && !terminalColors.aux) terminalColors.aux=terminalColors.info;
   if(!terminal.errors) terminal.errors=[];
   var errObject={code: ucode, message: umessage, aux: uaux};
   terminal.errors.push(errObject);
 }
 
-function printErrors(program){
+function printErrors(bool){
   
-  var warn=0;
-  var ers=0;
-  var suc=0;
+   warn=0;
+   ers=0;
+   suc=0;
   //count errors and breaks if something is wrong
   terminal.errors.forEach(function(element){
     if(element.code[0]=== "E"){
@@ -141,15 +182,13 @@ function printErrors(program){
 
  });
  
+//check the header and print it!
+checkHeader();
 
-  if (terminal.brand){printBrand();}
-  if(ers>0){infoError();}
-  if(ers===0 && warn===0){infoSuccess();}
-  if(ers===0 && warn>0){infoWarning();}
-
-
+  
+printMess();
 //displays the error messages
-//if(program.verbose){
+if(bool!==false){
  terminal.errors.forEach(function(element){
   //console.log(indexErrors[i], messageErrors[i]);
     if (element.code[0]=== "S"){
@@ -162,18 +201,126 @@ function printErrors(program){
       aError(element);
     }
    });
+  }
 
-console.log(terminal.errors);
- // }
+ // Check the footer and print it
+ checkFooter();
+ 
+}
+
+function checkFooter(){
+  if(terminal.footer){
+    printBlock(terminal.footer);
+    if(terminal.brand && terminal.footer.indexOf("brand")<=0){printBrand();}
+    if(terminal.logo && terminal.footer.indexOf("logo")<=0) printLogo();   
+    if(terminal.copyright && terminal.footer.indexOf("copyright")<=0) printCopyright();
+    if(terminal.info && terminal.footer.indexOf("info")<=0) printInfo();   
+    if(terminal.symbolProgress && terminal.footer.indexOf("symbolProgress")<=0) printProgress();  
+    } 
+   
+}
+
+function checkHeader(){
+  if(terminal.header){
+    printBlock(terminal.header);
+   /* if(terminal.brand && terminal.header.indexOf("brand")<=0){printBrand();}
+    if(terminal.info && terminal.header.indexOf("info")<=0) printInfo(); 
+    if(terminal.symbolProgress && terminal.header.indexOf("symbolProgress")<=0) printProgress();
+    if(terminal.copyright && terminal.header.indexOf("copyright")<=0) printCopyright();
+    if(terminal.logo && terminal.header.indexOf("logo")<=0) printLogo();     
+  */  } 
+    else{
+      if(terminal.brand) printBrand();
+      if(terminal.logo) printLogo(); 
+      if(terminal.copyright) printCopyright();
+      if(terminal.info) printInfo();
+      if(terminal.symbolProgress) printProgress();   
+    }
+}
+
+function printBlock(block){
+  for(var name in block){            
+
+       switch (terminal.header[name]){
+                case 'brand':
+                  printBrand();
+                  break;
+                case 'logo':
+                  printLogo();
+                  break;
+                case 'info':
+                  printInfo();
+                  break;
+                case 'copyright':
+                  printCopyright();
+                  break;
+                case 'symbolProgress':
+                  printProgress();
+                  break;              
+                default:
+                  printMess();
+                  break;
+
+              }       
+      
+      }
 }
 
 
+function printMess(){
+  process.stdout.write(mess+"\n\n");
+}
+
+function printCopyright(){ 
+if(terminal.copyright){
+  console.log(); 
+  console.log(terminalColors.copyright(terminal.copyright));
+  console.log(); 
+  }
+}
+
+function printLogo(){
+if(terminal.logo){
+  console.log(); 
+  console.log(terminal.colors.logo(terminal.logo));
+  console.log(); 
+  }
+}
+
+function printProgress(){
+process.stdout.write("   ");    
+ 
+terminal.errors.forEach(function(element){
+   if(element.code[0]=== "E"){
+      process.stdout.write(terminalColors.error(terminal.symbolProgress));    
+    }
+    else if(element.code[0]=== "W"){
+      process.stdout.write(terminalColors.warning(terminal.symbolProgress));    
+   }
+   else{
+      process.stdout.write(terminalColors.success(terminal.symbolProgress));    
+   }
+  
+  });
+process.stdout.write("\n");    
+  console.log();    
+
+}
+
+function printInfo(){
+  if(ers>0){infoError();}
+  if(ers===0 && warn===0){infoSuccess();}
+  if(ers===0 && warn>0){infoWarning();}
+
+}
+
 function aError(errorObject){
   if(errorObject.aux){
-
+  console.log(terminalColors.error("o "+errorObject.message)+ " " +terminalColors.aux(errorObject.aux));
+  console.log();  
   }
   else{
-  console.log(terminalColors.err("o "+errorObject.message));
+  console.log(terminalColors.error("o "+errorObject.message));
   console.log();
   }
     
@@ -182,6 +329,8 @@ function aError(errorObject){
 function aSuccess(errorObject){
   if(errorObject.aux){
 
+   console.log(terminalColors.success("o Success: "+errorObject.message) +" " +terminalColors.aux(errorObject.aux));
+   console.log();
     }
   else{
    console.log(terminalColors.success("o Success: "+errorObject.message));
@@ -191,7 +340,8 @@ function aSuccess(errorObject){
 
 function aWarning(errorObject){
   if(errorObject.aux){
-
+    console.log(terminalColors.warning("o Warning: "+errorObject.message)+" " +terminalColors.aux(errorObject.aux));
+    console.log();
   }
   else{
     console.log(terminalColors.warning("o Warning: "+errorObject.message));
@@ -204,7 +354,7 @@ function aWarning(errorObject){
 
 };
 
-/*JAVASCRIPT AUDREYII OBJECT
+/*JAVASCRIPT AUDREYII OBJECT EXAMPLE
 
 
 {brand: string, 
