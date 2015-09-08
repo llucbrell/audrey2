@@ -69,8 +69,11 @@ audrey.writeLine(data);
 
 You can hide the errors by passing a boolean false to the method.
 
+![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura2.png)
+
+
 ```js
-audrey.debug();
+audrey.debug(false);
 ``` 
 
 ## View Components
