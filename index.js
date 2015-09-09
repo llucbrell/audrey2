@@ -169,11 +169,11 @@ function printErrors(bool){
    suc=0;
   //count errors and breaks if something is wrong
   terminal.errors.forEach(function(element){
-    if(element.code[0]=== "E"){
+    if(element.code[0]=== "E" ||element.code[0]=== "e"){
           ers++;
          // break;
     }
-    else if(element.code[0]=== "W"){
+    else if(element.code[0]=== "W"|| element.code[0]=== "w"){
           warn++;       
    }
    else{
@@ -191,13 +191,13 @@ printMess();
 if(bool!==false){
  terminal.errors.forEach(function(element){
   //console.log(indexErrors[i], messageErrors[i]);
-    if (element.code[0]=== "S"){
+    if (element.code[0]=== "S" || element.code[0]=== "s"){
       aSuccess(element);
     }
-    else if(element.code[0]=== "W"){
+    else if(element.code[0]=== "W" || element.code[0]=== "w"){
       aWarning(element);
     }
-    else if(element.code[0]=== "E"){
+    else if(element.code[0]=== "E" || element.code[0]=== "e"){
       aError(element);
     }
    });

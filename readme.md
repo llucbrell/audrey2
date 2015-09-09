@@ -1,16 +1,32 @@
 # Audrey-2
 
-> View Control for CLI
+> View Control for Command Line Interface
 
 ![](https://raw.githubusercontent.com/llucbrell/audrey2/master/audrey.png)
 
+When we build a CLI (Command Line Interface) we can find some troubles. While the software stays small it's easy to mantain and work with it. But as much a it grows... It could be a work for someone out of space.
 
-Node module as an object factory. Create a VCCLI and apply the model-view-control on your nodeJS command line apps. 
+
+Click this [link](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) if you'r interested in the MVC architecture style that Audrey want to apply.
 
 
-Feed Audrey with object errors after commands actions. This carnivorous plant get charge of the output console display and give a little sugar for your console users.
+## Specifications
 
-Feed Audrey with a header, footer & data for displaying. She'll grow big and strong!
+This code try to complement other CLI tools like commander, unicorn etc., to implement the MVC on your terminal apps.
+If you bind Audrey with them you can convert this tools in a complete and functional controller.
+Commander and others update the model, and call Audrey to give you the power of update view/s. 
+
+Audrey it's build as a nodeJS module, precisely as an clousure object factory. That way Audrey doesn't inffer in the code of your app.
+
+## How it does? 
+
+Feed Audrey with object errors and data extracted from your commands actions. This carnivorous plant get charge of the output console display and give to your users a little of sugar rather than only an ugly output option. 
+
+You can combine one or more Audreys with your favorite nodeJS-CLI. Then you get more control of what you display and the way you do. And of course, you don't need to think so much about code-flow.
+
+
+If you feed Audrey with a header, footer & data for displaying... 
+It'll grow big and strong!
 
 
 ## Install
@@ -23,16 +39,6 @@ $ npm install audrey2
 ## Usage
 
 ```js
-var color='red';//'blue', 'green', etc.,  
-
-/* You also can use your own chalk color
- * combinations to give it more style
- * as 
- * var chalk=require('chalk');
- * var color=chalk.bgGreen;
- */
-
-
 var audrey2= require('audrey2');
 var audrey= audrey(myTerminalDisplay);
 
@@ -46,7 +52,7 @@ audrey.feed("W01", "A plant from out Space!");
 //you can show success on the console too
 audrey.feed("S001", "I'm Alive!");
 //or pass some auxiliar to print in the same line
-adrey.feed("s002", "This is an new kind of plant", cli.name);
+adrey.feed("S002", "This is a new kind of plant!", cli.name);
 audrey.debug();
 ```
 
@@ -67,7 +73,7 @@ audrey.writeLine(data);
 
 ## Debug mode on... off
 
-You can hide the errors by passing a boolean false to the method.
+You can hide the errors by passing a boolean false to the method. In this case audrey only print the header and the body. This is a feature added for --verbose cli option. 
 
 ![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura2.png)
 
@@ -90,7 +96,7 @@ Audrey has some basic components to give you a some custom options. Put, whateve
 
 ## Custom Object
 
-You can customize almoust everything in Audrey VCCLI. The view is divided, as a basic HTML does. 
+This is the view of the MVC. You can customize almoust everything in Audrey View. The view is divided, as a basic HTML does. 
 
 >Header 
 
@@ -98,9 +104,9 @@ You can customize almoust everything in Audrey VCCLI. The view is divided, as a 
 
 >Footer
 
-You must use this parts to organize your view.
-Create an object as next and send it to Audrey.
+You must use this parts to organize your view. Include name components inside this arrays and define them outside using the same name.
 
+Look at this terminal options defined before send it to Audrey.
 
 ```js
 var terminal={ 
@@ -117,8 +123,36 @@ var terminal={
         }
 }
 ```
+## Colors
+
+Audrey also gives you some colors to choose.
 
 
+```js
+var red='red';//'blue', 'green', etc.,  
+```
+
+You also can use your own chalk color
+combinations to give it more style
+as..
+
+```js
+  var color=chalk.bgGreen;
+```
+Remember to install the chalk module or you'lll find an error.
+
+
+## Contribute
+
+Help Audrey to grow with human blood..
+Now, choose one of this topics and don't become a dentist!
+
+-terriffic table display
+-bloody progress bar
+-Feed audrey with data from temp files
+
+<!---display of more than ascii symbols
+-->
 
 ## License
 
