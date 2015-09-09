@@ -57,7 +57,7 @@ audrey.debug();
 ```
 
 
-![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura.png)
+![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura2.png)
 
 
 ## Printing
@@ -75,7 +75,7 @@ audrey.writeLine(data);
 
 You can hide the errors by passing a boolean false to the method. In this case audrey only print the header and the body. This is a feature added for --verbose cli option. 
 
-![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura2.png)
+![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura.png)
 
 
 ```js
@@ -147,9 +147,9 @@ Remember to install the chalk module or you'lll find an error.
 Help Audrey to grow with human blood..
 Now, choose one of this topics and don't become a dentist!
 
--terriffic table display
--bloody progress bar
--Feed audrey with data from temp files
+- terriffic table display
+- bloody progress bar
+- Feed audrey with data from temp files
 
 <!---display of more than ascii symbols
 -->
