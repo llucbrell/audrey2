@@ -314,11 +314,11 @@ function printInfo(){
 
 function aError(errorObject){
   if(errorObject.aux){
-  console.log(terminalColors.error("o Error: "+errorObject.message)+ " " +terminalColors.aux(errorObject.aux));
+  console.log(terminalColors.error(terminal.symbolProgress+" Error: "+errorObject.message)+ " " +terminalColors.aux(errorObject.aux));
   console.log();  
   }
   else{
-  console.log(terminalColors.error("o Error: "+errorObject.message));
+  console.log(terminalColors.error(terminal.symbolProgress+" Error: "+errorObject.message));
   console.log();
   }
     
@@ -327,22 +327,22 @@ function aError(errorObject){
 function aSuccess(errorObject){
   if(errorObject.aux){
 
-   console.log(terminalColors.success("o Success: "+errorObject.message) +" " +terminalColors.aux(errorObject.aux));
+   console.log(terminalColors.success(terminal.symbolProgress+" Success: "+errorObject.message) +" " +terminalColors.aux(errorObject.aux));
    console.log();
     }
   else{
-   console.log(terminalColors.success("o Success: "+errorObject.message));
+   console.log(terminalColors.success(terminal.symbolProgress+" Success: "+errorObject.message));
    console.log();
   }
 }
 
 function aWarning(errorObject){
   if(errorObject.aux){
-    console.log(terminalColors.warning("o Warning: "+errorObject.message)+" " +terminalColors.aux(errorObject.aux));
+    console.log(terminalColors.warning(terminal.symbolProgress+" Warning: "+errorObject.message)+" " +terminalColors.aux(errorObject.aux));
     console.log();
   }
   else{
-    console.log(terminalColors.warning("o Warning: "+errorObject.message));
+    console.log(terminalColors.warning(terminal.symbolProgress+" Warning: "+errorObject.message));
     console.log();
   }
 }
