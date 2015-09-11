@@ -15,7 +15,16 @@ var ers;
 var warn;
 var suc;
 var mess="";
-//console.log(terminal);
+
+
+var properties= Object.getOwnPropertyNames(terminal);
+var colors=Object.getOwnPropertyNames(terminal.colors);
+//for error in the use of this library
+var audreyErrors={
+  color:{code:"E01", message:"There is no color defined for "},
+defined:{code:"E02", message:"Not defined "},
+noComponent:{code:"E03", message:"There is no tag deffined for "}
+};
 
 return{  
     //control error array
@@ -122,37 +131,37 @@ function userColor(option){
 }
 
 //print the ascii image brand
-function printBrand(){
- if(terminal.brand){
-  console.log(); 
-  process.stdout.write(terminalColors.brand(terminal.brand));
- // console.log(); 
-  }
+function printBrand(simName){
+var name= simName.slice(1); //delete simbol of the name 
+  checkProperties(name); 
+  checkColors(name);
+      console.log(); 
+      process.stdout.write(terminal.colors[name](terminal[name]));
 }
+
 //print the info message
-function infoSuccess(){
-  if(terminal.info){ 
- // console.log(); 
-  console.log(terminalColors.success(terminal.info));
-  console.log(); 
-  }
-
+function infoSuccess(simName){
+var name= simName.slice(1); //delete simbol of the name
+checkProperties(name);//checks if exists
+checkColors(name);//checks if there is colors
+     console.log(); 
+     process.stdout.write(terminal.colors.success(terminal[name]));
 }
 
-function infoWarning(){
-  if(terminal.info){
-  //console.log(); 
-  console.log(terminalColors.warning(terminal.info));
-  console.log(); 
-  }
+function infoWarning(simName){
+var name= simName.slice(1); //delete simbol of the name
+checkProperties(name);//checks if exists
+checkColors(name);//checks if there is colors
+     console.log(); 
+     process.stdout.write(terminal.colors.warning(terminal[name]));
 }
 
-function infoError(){
-  if(terminal.info){
- // console.log(); 
-  console.log(terminalColors.error(terminal.info));
-  console.log();
-  }   
+function infoError(simName){
+var name= simName.slice(1); //delete simbol of the name
+checkProperties(name);
+checkColors(name);
+     console.log(); 
+     process.stdout.write(terminal.colors.error(terminal[name]));
 }
 
 function addControl(ucode, umessage, uaux){
@@ -211,54 +220,41 @@ if(bool!==false){
 function checkFooter(){
   if(terminal.footer){
     printBlock(terminal.footer); 
-   /* if(terminal.brand && terminal.footer.indexOf("brand")<=0){printBrand();}
-    if(terminal.logo && terminal.footer.indexOf("logo")<=0) printLogo();   
-    if(terminal.copyright && terminal.footer.indexOf("copyright")<=0) printCopyright();
-    if(terminal.info && terminal.footer.indexOf("info")<=0) printInfo();   
-    if(terminal.symbolProgress && terminal.footer.indexOf("symbolProgress")<=0) printProgress();  
-   */ } 
+  } 
    
 }
 
 function checkHeader(){
   if(terminal.header){
     printBlock(terminal.header);  
-   /* if(terminal.brand && terminal.header.indexOf("brand")<=0){printBrand();}
-    if(terminal.info && terminal.header.indexOf("info")<=0) printInfo(); 
-    if(terminal.symbolProgress && terminal.header.indexOf("symbolProgress")<=0) printProgress();
-    if(terminal.copyright && terminal.header.indexOf("copyright")<=0) printCopyright();
-    if(terminal.logo && terminal.header.indexOf("logo")<=0) printLogo();     
-  */  } 
-    else{
+    } 
+ /*   else{
       if(terminal.brand) printBrand();
-      if(terminal.logo) printLogo(); 
       if(terminal.copyright) printCopyright();
       if(terminal.info) printInfo();
       if(terminal.symbolProgress) printProgress();   
-    }
+    }*/
 }
-
+//checks the different components
 function printBlock(block){
   for(var name in block){            
 //console.log(block[name]);
-       switch (block[name]){
-                case 'brand':
-                  printBrand();
+       switch (block[name][0]){
+                case '>':
+                  printBrand(block[name]);
                   break;
-                case 'logo':
-                  printLogo();
+                case '?':
+                  printInfo(block[name]);
                   break;
-                case 'info':
-                  printInfo();
+                case '&':
+                  printCopyright(block[name]);
                   break;
-                case 'copyright':
-                  printCopyright();
-                  break;
-                case 'symbolProgress':
-                  printProgress();
+                case '%':
+                  printProgress(block[name]);
                   break;              
-                
-
+                default:
+                  throw audreyErrors.noComponent.message+=block[name];
+                  break;
               }       
       
       }
@@ -269,28 +265,54 @@ function printMess(){
   process.stdout.write(mess+"\n\n");
 }
 
-function printCopyright(){ 
-if(terminal.copyright){
-  console.log(); 
-  console.log(terminalColors.copyright("\xA9 "+terminal.copyright));
-  console.log(); 
+function checkColors(name){
+  var bul=false; // boolean to control if its defined the property
+  for(var i=0; i<colors.length; i++){//iterate over prop names
+    if(colors[i] === name){//if it is
+      bul=true;
+    }
   }
+  if(bul!==true){//if its finded the statement of the tag
+    throw audreyErrors.color.message+= name;
+    } 
 }
 
-function printLogo(){
-if(terminal.logo){
- // console.log(); 
-  console.log(terminal.colors.logo(terminal.logo));
- // console.log(); 
+function checkProperties(name){
+  var bul=false; // boolean to control if its defined the property
+
+  for(var i=0; i<properties.length; i++){//iterate over prop names
+    if(properties[i] === name){//if it is
+      bul=true;
+    }
   }
+  if(bul!==true){//if its finded the statement of the tag
+    throw audreyErrors.defined.message+= name;
+    }  
 }
 
-function printProgress(){
+function printCopyright(simName){ 
+var name= simName.slice(1); //delete simbol of the name 
+  checkProperties(name);
+  checkColors(name);
+    var copyoutput=terminal[name].split(" ");//get the words
+    console.log(); 
+    console.log(terminal.colors[name](copyoutput[0]
+      +" \xA9 "+copyoutput.slice(1).join(" ")));
+    console.log();//output the license name + symbol + name
+}
+
+
+function printProgress(simName){
+  var name= simName.slice(1); //delete simbol of the name 
+checkProperties(name);
+checkColors("error");
+checkColors("warning");
+checkColors("success");
 process.stdout.write("   ");    
  
 terminal.errors.forEach(function(element){
-   if(element.code[0]=== "E"){
-      process.stdout.write(terminalColors.error(terminal.symbolProgress));    
+   if(element.code[0]=== "E"){    
+      process.stdout.write(terminal.colors.error(terminal.symbolProgress));    
     }
     else if(element.code[0]=== "W"){
       process.stdout.write(terminalColors.warning(terminal.symbolProgress));    
@@ -305,11 +327,10 @@ process.stdout.write("\n");
 
 }
 
-function printInfo(){
-  if(ers>0){infoError();}
-  if(ers===0 && warn===0){infoSuccess();}
-  if(ers===0 && warn>0){infoWarning();}
-
+function printInfo(simName){
+  if(ers>0){infoError(simName);}
+  if(ers===0 && warn===0){infoSuccess(simName);}
+  if(ers===0 && warn>0){infoWarning(simName);}
 }
 
 function aError(errorObject){
@@ -347,22 +368,4 @@ function aWarning(errorObject){
   }
 }
 
-
-
-
 };
-
-/*JAVASCRIPT AUDREYII OBJECT EXAMPLE
-
-
-{brand: string, 
-logo:string,
-info: string,
-commandMessage: string,
-copyright:string, 
-colors:{info: grey, warning: yellow, error: red,
-  succes: green, normal:white, brand:blue}, 
-processes:[arraycommandactions],
-errors:[array{code:E01, message:string, aux:[array]}]}
-
-*/
