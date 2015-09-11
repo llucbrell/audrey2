@@ -1,15 +1,21 @@
 
 module.exports= function(object){
-
+//stores all the options for the user
 var terminal=object;
-var terminalColors={};
 
 //modules load
 var chalk= require('chalk');
 
-checkOptions();
+//for error in the use of this library
+var audreyErrors={
+  color:{code:"E01", message:"There is no color defined for "},
+defined:{code:"E02", message:"Not defined "},
+noComponent:{code:"E03", message:"There is no tag deffined for "},
+noColor:{code:"E04", message:"There is no colors object defined"}
+};
+
 //set the colors of the terminal
-setUserColors(terminal.colors);
+checkUserColors(terminal.colors);
 
 var ers;
 var warn;
@@ -19,12 +25,6 @@ var mess="";
 
 var properties= Object.getOwnPropertyNames(terminal);
 var colors=Object.getOwnPropertyNames(terminal.colors);
-//for error in the use of this library
-var audreyErrors={
-  color:{code:"E01", message:"There is no color defined for "},
-defined:{code:"E02", message:"Not defined "},
-noComponent:{code:"E03", message:"There is no tag deffined for "}
-};
 
 return{  
     //control error array
@@ -44,63 +44,19 @@ return{
 
 //FUNCTIONS FOR THE CLI RESPONSE..
 
-function checkOptions(){
-  for(var option in terminal){
-    if(!terminal.colors.info){
-      terminal.colors.info= chalk.grey; 
-    }
-    if(!terminal.colors.warning){
-      terminal.colors.warning= chalk.yellow; 
-    }
-    if(!terminal.colors.error){
-      terminal.colors.error= chalk.red; 
-    }
-    if(!terminal.colors.brand){
-      terminal.colors.brand= chalk.blue; 
-    }
-    if(!terminal.colors.success){
-      terminal.colors.success= chalk.green; 
-    }
+ function checkUserColors(colorUser){
+  if(terminal.colors){
+    for(var name in colorUser){
+      setUserColor(colorUser[name]);
+      }
+  }
+  else{
+    throw audreyErrors.noColor.message;
   }
 }
 
 
- function setUserColors(colorUser){
- 
-
-    for(var name in colorUser){
-      
-       switch (name){
-                case 'copyright':
-                  terminalColors.copyright=userColor(colorUser.copyright);
-                  break;
-                case 'info':
-                  terminalColors.info=userColor(colorUser.info);
-                  break;
-                case 'success':
-                  terminalColors.success=userColor(colorUser.success);
-                  break;
-                case 'warning':
-                  terminalColors.warning=userColor(colorUser.warning);
-                  break;
-                case 'error':
-                  terminalColors.error=userColor(colorUser.error);
-                  break;
-                case 'aux':
-                  terminalColors.aux=userColor(colorUser.aux);
-                  break;
-                case 'brand':
-                  terminalColors.brand=userColor(colorUser.brand);
-                  break;     
-              }
-        
-      
-      }
-  
-}
-
-
-function userColor(option){
+function setUserColor(option){
   var col;
   
    switch (option){
@@ -165,14 +121,17 @@ checkColors(name);
 }
 
 function addControl(ucode, umessage, uaux){
-  if(uaux && !terminalColors.aux) terminalColors.aux=terminalColors.info;
+  if(uaux && !terminal.colors.aux) terminal.colors.aux=terminal.colors.info;
   if(!terminal.errors) terminal.errors=[];
   var errObject={code: ucode, message: umessage, aux: uaux};
   terminal.errors.push(errObject);
 }
 
 function printErrors(bool){
-  
+/* prints on the console, check first for errors and 
+ * prints the structure, it's the core of this program
+ * follow it and you follow the code flow 
+ */ 
    warn=0;
    ers=0;
    suc=0;
@@ -185,21 +144,17 @@ function printErrors(bool){
     else if(element.code[0]=== "W"|| element.code[0]=== "w"){
           warn++;       
    }
-   else{
-          suc++;      
-   }
-
+   else suc++;
  });
  
-//check the header and print it!
-checkHeader();
-
+//check the header and print it, then the body
+check("header");
+check("body");
   
 printMess();
 //displays the error messages
 if(bool!==false){
  terminal.errors.forEach(function(element){
-  //console.log(indexErrors[i], messageErrors[i]);
     if (element.code[0]=== "S" || element.code[0]=== "s"){
       aSuccess(element);
     }
@@ -213,32 +168,19 @@ if(bool!==false){
   }
 
  // Check the footer and print it
- checkFooter();
+ check("footer");
  
 }
 
-function checkFooter(){
-  if(terminal.footer){
-    printBlock(terminal.footer); 
-  } 
-   
+function check(name){
+ if(terminal[name]){
+  printBlock(terminal[name]);
+ }
 }
 
-function checkHeader(){
-  if(terminal.header){
-    printBlock(terminal.header);  
-    } 
- /*   else{
-      if(terminal.brand) printBrand();
-      if(terminal.copyright) printCopyright();
-      if(terminal.info) printInfo();
-      if(terminal.symbolProgress) printProgress();   
-    }*/
-}
 //checks the different components
 function printBlock(block){
   for(var name in block){            
-//console.log(block[name]);
        switch (block[name][0]){
                 case '>':
                   printBrand(block[name]);
@@ -273,7 +215,8 @@ function checkColors(name){
     }
   }
   if(bul!==true){//if its finded the statement of the tag
-    throw audreyErrors.color.message+= name;
+    //throw audreyErrors.color.message+= name;
+    terminal.colors[name]=chalk.white.bold;
     } 
 }
 
@@ -315,10 +258,10 @@ terminal.errors.forEach(function(element){
       process.stdout.write(terminal.colors.error(terminal.symbolProgress));    
     }
     else if(element.code[0]=== "W"){
-      process.stdout.write(terminalColors.warning(terminal.symbolProgress));    
+      process.stdout.write(terminal.colors.warning(terminal.symbolProgress));    
    }
    else{
-      process.stdout.write(terminalColors.success(terminal.symbolProgress));    
+      process.stdout.write(terminal.colors.success(terminal.symbolProgress));    
    }
   
   });
@@ -328,6 +271,10 @@ process.stdout.write("\n");
 }
 
 function printInfo(simName){
+  checkColors("error");
+  checkColors("warning");
+  checkColors("success");
+  checkColors("aux");
   if(ers>0){infoError(simName);}
   if(ers===0 && warn===0){infoSuccess(simName);}
   if(ers===0 && warn>0){infoWarning(simName);}
@@ -335,11 +282,11 @@ function printInfo(simName){
 
 function aError(errorObject){
   if(errorObject.aux){
-  console.log(terminalColors.error(terminal.symbolProgress+" Error: "+errorObject.message)+ " " +terminalColors.aux(errorObject.aux));
+  console.log(terminal.colors.error(terminal.symbolProgress+" Error: "+errorObject.message)+ " " +terminal.colors.aux(errorObject.aux));
   console.log();  
   }
   else{
-  console.log(terminalColors.error(terminal.symbolProgress+" Error: "+errorObject.message));
+  console.log(terminal.colors.error(terminal.symbolProgress+" Error: "+errorObject.message));
   console.log();
   }
     
@@ -347,23 +294,22 @@ function aError(errorObject){
 
 function aSuccess(errorObject){
   if(errorObject.aux){
-
-   console.log(terminalColors.success(terminal.symbolProgress+" Success: "+errorObject.message) +" " +terminalColors.aux(errorObject.aux));
+   console.log(terminal.colors.success(terminal.symbolProgress+" Success: "+errorObject.message) +" " +terminal.colors.aux(errorObject.aux));
    console.log();
     }
   else{
-   console.log(terminalColors.success(terminal.symbolProgress+" Success: "+errorObject.message));
+   console.log(terminal.colors.success(terminal.symbolProgress+" Success: "+errorObject.message));
    console.log();
   }
 }
 
 function aWarning(errorObject){
   if(errorObject.aux){
-    console.log(terminalColors.warning(terminal.symbolProgress+" Warning: "+errorObject.message)+" " +terminalColors.aux(errorObject.aux));
+    console.log(terminal.colors.warning(terminal.symbolProgress+" Warning: "+errorObject.message)+" " +terminal.colors.aux(errorObject.aux));
     console.log();
   }
   else{
-    console.log(terminalColors.warning(terminal.symbolProgress+" Warning: "+errorObject.message));
+    console.log(terminal.colors.warning(terminal.symbolProgress+" Warning: "+errorObject.message));
     console.log();
   }
 }
