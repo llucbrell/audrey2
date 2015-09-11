@@ -32,7 +32,7 @@ It'll grow big and strong!
 ## Install
 
 ```
-$ npm install audrey2
+$ npm install --save audrey2
 ```
 
 ## Usage
