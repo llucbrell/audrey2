@@ -35,7 +35,6 @@ It'll grow big and strong!
 $ npm install audrey2
 ```
 
-
 ## Usage
 
 ```js
@@ -56,9 +55,7 @@ adrey.feed("S002", "This is a new kind of plant!", cli.name);
 audrey.debug();
 ```
 
-
 ![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura2.png)
-
 
 ## Printing
 
@@ -82,18 +79,6 @@ You can hide the errors by passing a boolean false to the method. In this case a
 audrey.debug(false);
 ``` 
 
-## View Components
-
-Audrey has some basic components to give you a some custom options. Put, whatever you want in the custom object.
-
-1. brand -- string
-2. logo -- string
-3. copyright -- string | with this \xA9  symbol
-4. info --string | change color with errors
-5. symbolProgress -- string | change color with errors you can use it as jasmine/mocha color option
-5. colors -- {name:string, name2:string} | you can add color to any part of the view with mocha or basic color names.
-
-
 ## Custom Object
 
 This is the view of the MVC. You can customize almoust everything in Audrey View. The view is divided, as a basic HTML does. 
@@ -104,53 +89,67 @@ This is the view of the MVC. You can customize almoust everything in Audrey View
 
 >Footer
 
-You must use this parts to organize your view. Include name components inside this arrays and define them outside using the same name.
+You must use this parts to organize your view. Include name components inside this arrays and define them outside using their name without the taggy.
 
 Look at this terminal options defined before send it to Audrey.
 
 ```js
 var terminal={ 
-          header: [ "brand" , "symbolProgress"],
+          header: [ ">Title" , "%symbol"],
           brand: "this is Audrey2",
           copyright: "Seymour",
           symbolProgress: "o",
           colors:{ 
            brand: "red", 
-           copyright: chalk.blue}
-         /* footer: ["something"] 
-          * if you ommit footer and header every component will  be placed into the body.
-          */
-        }
+           copyright: chalk.blue}         
+        };
 }
 ```
-## Colors
 
-Audrey also gives you some colors to choose.
+## View Components
 
+Audrey has some basic components to give you some custom options. Any component is more or less as if it was a tag. They have a reserved characther at the beggining of each string you include in the array. You only have to take care to include  this signs into the header, body and footer's array.
 
+For example
 ```js
-var red='red';//'blue', 'green', etc.,  
+var object= 
+{header:[">brand",">brand2","?advise"]
+ body:["%errorsBar"],
+ footer:["&mycopyright"]}
 ```
 
-You also can use your own chalk color
-combinations to give it more style
-as..
+##Components
+
+1. >mystrings -- >string | is considered as simple string
+2. &copyright -- &string | get two or more words. First, license's name and then the author, add the copyright symbol 
+4. ?info -- ?string | change color of the string with the errors
+5. %symbolProgress -- %string | change color symbol with errors you can use it as jasmine/mocha error checker
+
+## Colors
+
+If you want to add colors to your view, only add a property colors with an object of whatever component you want to color  with chalk.colorName.
 
 ```js
   var color=chalk.bgGreen;
 ```
-Remember to install the chalk module or you'lll find an error.
 
+Audrey also gives you some colors to choose if you don't want to install chalk.js
+
+```js
+var red='red';//'blue', 'green', etc.,  
+```
 
 ## Contribute
 
 Help Audrey to grow with human blood..
 Now, choose one of this topics and don't become a dentist!
 
+- horrible big fonts support
 - terriffic table display
 - bloody progress bar
-- Feed audrey with data from temp files
 
+<!-- Feed audrey with data from temp files
+-->
 <!---display of more than ascii symbols
 -->
 
