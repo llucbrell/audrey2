@@ -8,10 +8,12 @@ var chalk= require('chalk');
 
 //for error in the use of this library
 var audreyErrors={
-  color:{code:"E01", message:"There is no color defined for "},
+  color:{code:"E01", message:"There is no color defined in the view for "},
 defined:{code:"E02", message:"Not defined "},
-noComponent:{code:"E03", message:"There is no tag deffined for "},
-noColor:{code:"E04", message:"There is no colors object defined"}
+noComponent:{code:"E03", message:"There isn't a tag deffined in the view for "},
+noColor:{code:"E04", message:"There is no colors object defined"},
+maxArrayLength:{code:"E05", message:"Array can't be bigger than 3 -arrayName -->"},
+minArrayLength:{code:"E06", message:"Array can't be smaller than 3 -arrayName -->"}
 };
 
 //set the colors of the terminal
@@ -47,7 +49,7 @@ return{
  function checkUserColors(colorUser){
   if(terminal.colors){
     for(var name in colorUser){
-      setUserColor(colorUser[name]);
+      colorUser[name]= setUserColor(colorUser[name]);
       }
   }
   else{
@@ -58,7 +60,8 @@ return{
 
 function setUserColor(option){
   var col;
-  
+        console.log(option);
+
    switch (option){
           
                   case 'red':
@@ -120,7 +123,7 @@ checkColors(name);
      process.stdout.write(terminal.colors.error(terminal[name]));
 }
 
-function addControl(ucode, umessage, uaux){
+function addControl(ucode, umessage, uaux){//add error to audrey
   if(uaux && !terminal.colors.aux) terminal.colors.aux=terminal.colors.info;
   if(!terminal.errors) terminal.errors=[];
   var errObject={code: ucode, message: umessage, aux: uaux};
@@ -193,7 +196,10 @@ function printBlock(block){
                   break;
                 case '%':
                   printProgress(block[name]);
-                  break;              
+                  break; 
+                case '~':
+                  printChange(block[name]); 
+                  break;            
                 default:
                   throw audreyErrors.noComponent.message+=block[name];
                   break;
@@ -202,10 +208,40 @@ function printBlock(block){
       }
 }
 
-
+// direct injection of data after body
 function printMess(){
   process.stdout.write(mess+"\n\n");
 }
+function printCBrand(name, tagColor){
+  console.log(); 
+      process.stdout.write(tagColor(name));
+}
+
+function printChange(simName){
+  var name= simName.slice(1); //delete simbol of the name
+  checkProperties(name);
+  checkArrayLength(name, 3, 3);
+  if(terminal.colors[name]){
+    if(ers>0){printCBrand(terminal[name][2], terminal.colors[name]);}
+    if(ers===0 && warn===0){printCBrand(terminal[name][0],terminal.colors[name]);}
+    if(ers===0 && warn>0){printCBrand(terminal[name][1],terminal.colors[name]);}
+  }
+  else{
+    checkColors("error");
+    checkColors("warning");
+    checkColors("success");
+    if(ers>0){printCBrand(terminal[name][2], terminal.colors.error);}
+    if(ers===0 && warn===0){printCBrand(terminal[name][0], terminal.colors.success);}
+    if(ers===0 && warn>0){printCBrand(terminal[name][1], terminal.colors.warning);}  
+  }
+ 
+}
+
+function checkArrayLength(name, minLength, maxLength){
+   if(terminal[name].length> maxLength) throw audreyErrors.maxArrayLength+= name;
+   if(terminal[name].length< minLength) throw audreyErrors.minArrayLength+= name;
+}
+
 
 function checkColors(name){
   var bul=false; // boolean to control if its defined the property

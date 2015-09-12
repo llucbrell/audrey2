@@ -1,5 +1,5 @@
 {
-  "name": "audrey2",
+  "name": "audrey-two",
   "version": "1.0.0",
   "description": "Ask questions from CLI and Write answers to a file",
   "main": "index.js",

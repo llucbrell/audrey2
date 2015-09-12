@@ -3,7 +3,7 @@ var chalk=require('chalk');
 var chalkColor= chalk.blue.bold; 
 //or any other chalk color combination
 
-var myTerminal={header: [ ">brand" ,"%symbolProgress", "?info"],
+var myTerminal={header: [ ">brand" ,"%symbolProgress", "?info", "~change"],
 			    brand:
 
 
@@ -35,17 +35,19 @@ var myTerminal={header: [ ">brand" ,"%symbolProgress", "?info"],
    
    			   ,copyright:"Lucas_C / llucbrell",
 				symbolProgress:".-",
+				change:["success", "warning", "error"],
 				colors:
 				{ info: chalk.magenta,
 				  mess:  chalk.bgGreen,
 				  warning: chalk.yellow.bold, 
 				  error: chalk.red.bold,
-				  success: chalk.green.bold, 
+				  success: "green", 
 				  normal:"white",
 				  brandi: chalk.green.bold,
 				  copyright:chalk.blue.bold,
 				  brand: chalk.red.bold,
-				  //logo:chalk.red.bold,				 
+				  //logo:chalk.red.bold,	
+				  //change: "blue",			 
 				 }, 
 				footer:["&copyright"],
 				};

@@ -1,4 +1,4 @@
-# Audrey-2
+# audrey-two
 
 > View Control for Command Line Interface
 
@@ -32,7 +32,7 @@ It'll grow big and strong!
 ## Install
 
 ```
-$ npm install --save audrey2
+$ npm install --save audrey-two
 ```
 
 ## Usage
@@ -97,7 +97,7 @@ Look at this terminal options defined before send it to Audrey.
 var terminal={ 
           header: [ ">Title" , "%symbol"],
           brand: "this is Audrey2",
-          copyright: "Seymour",
+          copyright: "MIT Seymour",
           symbolProgress: "o",
           colors:{ 
            brand: "red", 
@@ -120,10 +120,11 @@ var object=
 
 ##Components
 
-1. >mystrings -- >string | is considered as simple string
-2. &copyright -- &string | get two or more words. First, license's name and then the author, add the copyright symbol 
-4. ?info -- ?string | change color of the string with the errors
-5. %symbolProgress -- %string | change color symbol with errors you can use it as jasmine/mocha error checker
+1. >mystrings: "string" | any string
+2. &copyright: "string" | get two or more words. First, license's name and then the author, add the copyright symbol 
+4. ?info: "string" | change color of the string with the errors
+5. %symbolProgress:  "string" | change color symbol with errors you can use it as jasmine/mocha error checker
+6. ~change: ["three","srting","array"] | three strings that change if there are errors or not. If it's not a color defined uses the success, warning, error colors.
 
 ## Colors
 
