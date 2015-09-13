@@ -3,17 +3,28 @@ var chalk=require('chalk');
 var chalkColor= chalk.blue.bold; 
 //or any other chalk color combination
 
-var myTerminal={header: [ ">brand" ,"%symbolProgress", "?info", "~change"],
+var myTerminal={header: [ ">brand"],
 			    brand:
+  
+   " ▄████▄   ▄▄▄        ██████ ▄▄▄█████▓ \n"
+  +"▒██▀ ▀█  ▒████▄    ▒██    ▒ ▓  ██▒  ▒ \n"
+  +"▒▓█    ▄ ▒██  ▀█▄  ░ ▓██▄   ▒  ██░ ▒░▒\n"
+  +"▒▓▓▄ ▄██▒░██▄▄▄▄██   ▒   ██▒░  ██▓ ░ ░\n"
+  +"▒ ▓███▀ ░ ▓█   ▓██▒▒██████▒▒  ▒██▒ ░ ░\n"
+  +"░ ░▒ ▒  ░ ▒▒   ▓▒█░▒ ▒▓▒ ▒ ░  ▒ ░░   ░\n"
+  +"  ░  ▒     ▒   ▒▒ ░░ ░▒  ░ ░    ░     \n"
+  +"░          ░   ▒   ░  ░  ░    ░       \n"
+  +"░ ░            ░  ░      ░            \n"
+  +"░                                     \n"
 
 
-
+/*
 	 "    .-._.;;;'                                         \n"  
 +"   (_).;                 .'                               \n"
 +"     .:--..-.  .-.  .-..'     . ,';.,';.  .-.  .-.        \n"
 +"    .:' .;.-'.;.-' :   ;      ;;  ;;  ;;.;.-'.;.-' .-..-. \n"
 +"  .-:    `:::'`:::'`:::'`.   ';  ;;  ';  `:::'`:::'`-'`-' \n"
-+" (_/                        _;        `-'                 \n\n"
++" (_/                        _;        `-'                 \n\n"*/
 
 			    
   /*,brandi:" █████╗ ██╗   ██╗██████╗ ██████╗ ███████╗██╗   ██╗    ██████╗ \n"
@@ -27,15 +38,16 @@ var myTerminal={header: [ ">brand" ,"%symbolProgress", "?info", "~change"],
 
 			    ,logo: "           View Control for CLI"
                     
-			    ,info:  
+			    /*,info: 
     "  .__                       \n"   
 +"  [__)._. _  _ ._. _  __ __ \n"   
 +"  |   [  (_)(_][  (/,_) _)  \n"   
-+"            ._| "
++"            ._| "*/
    
    			   ,copyright:"Lucas_C / llucbrell",
-				symbolProgress:".-",
-				change:["success", "warning", "error"],
+   			   body:["#table"],
+				//symbolProgress:"░",
+				//change:["success", "warning", "error"],
 				colors:
 				{ info: chalk.magenta,
 				  mess:  chalk.bgGreen,
@@ -46,9 +58,44 @@ var myTerminal={header: [ ">brand" ,"%symbolProgress", "?info", "~change"],
 				  brandi: chalk.green.bold,
 				  copyright:chalk.blue.bold,
 				  brand: chalk.red.bold,
+				},
+				table: {data:[
+        [
+            chalk.red.bold('character- name'), chalk.blue.bold("age")
+           , chalk.green.bold('actor- name')
+        ],
+        [
+            chalk.red.bold('---------------'), chalk.blue.bold("---")
+           , chalk.green.bold("-----------")
+        ],
+        [
+            chalk.white.bold('Seymour Krelborn'), chalk.white.underline('25'),
+            chalk.cyan('Rick Moranis')
+        ],
+        [
+            chalk.white.bold('Audrey-two voice'), chalk.white.underline('45'),
+            chalk.cyan('Levi Stubbs')
+        ],
+         [
+            chalk.white.bold('Audrey'), chalk.white.underline('21'),
+            chalk.cyan('Ellen Greene')
+        ],
+        [
+            chalk.white.bold('Mr. Mushnik'), chalk.white.underline('63'),
+            chalk.cyan('Vincent Gardenia')
+        ],
+        [
+            chalk.white.bold('Orin Scrivello'), chalk.white.underline('32'),
+            chalk.bgBlue('Steve Martin')
+        ],
+        [
+            chalk.white.bold('Arthur Denton'), chalk.white.underline('30'),
+            chalk.cyan('Bill Murray')
+        ]
+         ], align:["l","r","l"]},
 				  //logo:chalk.red.bold,	
 				  //change: "blue",			 
-				 }, 
+				 
 				footer:["&copyright"],
 				};
 
@@ -75,7 +122,7 @@ audrey.feed("W05", "this is an warning");
 audrey.feed("S05","this is an exit-o", "odifa");
 audrey.feed("S05", "this is an exit-o");
 audrey.feed("E05", "this is an error");
-audrey.write("I'm starving ");
-audrey.write("feeeeed meeee.... Seymour!!!");
+//audrey.write("I'm starving ");
+//audrey.write("feeeeed meeee.... Seymour!!!");
 
-audrey.debug();
+audrey.debug(false);

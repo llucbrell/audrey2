@@ -17,7 +17,9 @@
   "author": "Lucas_C/llucbrell",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^1.1.1"
+    "chalk": "^1.1.1",
+    "string-length": "^1.0.1",
+    "text-table": "^0.2.0",
   },
   "devDependencies": {},
   "repository": {

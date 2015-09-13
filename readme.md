@@ -125,6 +125,16 @@ var object=
 4. ?info: "string" | change color of the string with the errors
 5. %symbolProgress:  "string" | change color symbol with errors you can use it as jasmine/mocha error checker
 6. ~change: ["three","srting","array"] | three strings that change if there are errors or not. If it's not a color defined uses the success, warning, error colors.
+7. #table: {array:[["array","of", "arrays"]["each", "array", "for"]["each", "line.", "Colors"]["only", "with", "chalk"]], align: ["letter", "for", "column"]}
+
+![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura3.png)
+
+alignment types are:
+
+* `'l'` - left
+* `'r'` - right
+* `'c'` - center
+* `'.'` - decimal
 
 ## Colors
 
@@ -146,8 +156,10 @@ Help Audrey to grow with human blood..
 Now, choose one of this topics and don't become a dentist!
 
 - horrible big fonts support
-- terriffic table display
+_ terriffic table display
 - bloody progress bar
+
+
 
 <!-- Feed audrey with data from temp files
 -->

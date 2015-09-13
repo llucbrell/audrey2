@@ -60,7 +60,6 @@ return{
 
 function setUserColor(option){
   var col;
-        console.log(option);
 
    switch (option){
           
@@ -199,6 +198,9 @@ function printBlock(block){
                   break; 
                 case '~':
                   printChange(block[name]); 
+                  break;
+                case '#':
+                  printTable(block[name]); 
                   break;            
                 default:
                   throw audreyErrors.noComponent.message+=block[name];
@@ -348,6 +350,25 @@ function aWarning(errorObject){
     console.log(terminal.colors.warning(terminal.symbolProgress+" Warning: "+errorObject.message));
     console.log();
   }
+}
+
+function printTable(simName){
+
+var stringL= require('string-length');
+var table= require('text-table');
+
+var name= simName.slice(1); //delete simbol of the name 
+
+checkProperties(name);
+
+var opts = {
+        stringLength: function(tbl) { return stringL(tbl) }
+        };
+if(terminal[name].align) opts.align= terminal[name].align;        
+var tbl = table(terminal[name].data, opts);    
+
+ console.log();
+ console.log(tbl);
 }
 
 };
