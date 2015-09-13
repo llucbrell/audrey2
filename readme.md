@@ -129,7 +129,7 @@ var object=
 
 ![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura3.png)
 
-alignment types are:
+Alignment types are:
 
 * `'l'` - left
 * `'r'` - right
@@ -150,13 +150,19 @@ Audrey also gives you some colors to choose if you don't want to install chalk.j
 var red='red';//'blue', 'green', etc.,  
 ```
 
+## Dependencies
+
+Audrey-two make use of...
+`![text-table](https://www.npmjs.com/package/text-table) module for a correct table display.`
+`![chalk](https://www.npmjs.com/package/chalk)module for the color display.
+People and plants really appreciate your job guys.
+
 ## Contribute
 
 Help Audrey to grow with human blood..
 Now, choose one of this topics and don't become a dentist!
 
 - horrible big fonts support
-_ terriffic table display
 - bloody progress bar
 
 
