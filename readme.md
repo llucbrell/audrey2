@@ -153,8 +153,10 @@ var red='red';//'blue', 'green', etc.,
 ## Dependencies
 
 Audrey-two make use of...
-`![text-table](https://www.npmjs.com/package/text-table) module for a correct table display.`
-`![chalk](https://www.npmjs.com/package/chalk)module for the color display.
+
+![text-table](https://www.npmjs.com/package/text-table) module for a correct table display.
+![chalk](https://www.npmjs.com/package/chalk)module for the color display.
+
 People and plants really appreciate your job guys.
 
 ## Contribute
