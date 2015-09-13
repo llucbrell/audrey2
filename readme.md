@@ -127,14 +127,15 @@ var object=
 6. ~change: ["three","srting","array"] | three strings that change if there are errors or not. If it's not a color defined uses the success, warning, error colors.
 7. #table: {array:[["array","of", "arrays"]["each", "array", "for"]["each", "line.", "Colors"]["only", "with", "chalk"]], align: ["letter", "for", "column"]}
 
-![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura3.png)
-
-Alignment types are:
+Alignment types:
 
 * `'l'` - left
 * `'r'` - right
 * `'c'` - center
 * `'.'` - decimal
+
+![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura3.png)
+
 
 ## Colors
 
@@ -147,26 +148,26 @@ If you want to add colors to your view, only add a property colors with an objec
 Audrey also gives you some colors to choose if you don't want to install chalk.js
 
 ```js
-var red='red';//'blue', 'green', etc.,  
+  var red='red';//'blue', 'green', etc.,  
 ```
 
 ## Dependencies
 
 Audrey-two make use of...
 
-![text-table](https://www.npmjs.com/package/text-table) module for a correct table display.
-![chalk](https://www.npmjs.com/package/chalk)module for the color display.
+*![text-table](https://www.npmjs.com/package/text-table) module for a correct table display.
+*![chalk](https://www.npmjs.com/package/chalk)module for the color display.
 
-People and plants really appreciate your job guys.
+People and plants really appreciate your great job!
 
 ## Contribute
 
 Help Audrey to grow with human blood..
 Now, choose one of this topics and don't become a dentist!
 
-- horrible big fonts support
+- horrible big fonts support - from string to big font
 - bloody progress bar
-
+- terriffic 
 
 
 <!-- Feed audrey with data from temp files

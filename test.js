@@ -44,7 +44,7 @@ var myTerminal={header: [ ">brand"],
 +"  |   [  (_)(_][  (/,_) _)  \n"   
 +"            ._| "*/
    
-   			   ,copyright:"Lucas_C / llucbrell",
+   			   ,copyright:"MIT Lucas_C / llucbrell",
    			   body:["#table"],
 				//symbolProgress:"░",
 				//change:["success", "warning", "error"],
