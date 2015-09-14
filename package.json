@@ -1,25 +1,32 @@
 {
   "name": "audrey-two",
-  "version": "1.0.0",
-  "description": "Ask questions from CLI and Write answers to a file",
+  "version": "1.0.1",
+  "description": "View Control for Command Line Interface",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "ask",
     "CLI",
     "command",
     "console",
+    "view",
     "write",
-    "file"
+    "terminal",
+    "audrey",
+    "audrey-two",
+    "audrey2",
+    "controller",
+    "control",
+    "stylish",
+    "style"
   ],
   "author": "Lucas_C/llucbrell",
   "license": "MIT",
   "dependencies": {
     "chalk": "^1.1.1",
     "string-length": "^1.0.1",
-    "text-table": "^0.2.0",
+    "text-table": "^0.2.0"
   },
   "devDependencies": {},
   "repository": {
