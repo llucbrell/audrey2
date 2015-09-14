@@ -39,8 +39,8 @@ $ npm install --save audrey-two
 ## Usage
 
 ```js
-var audrey2= require('audrey2');
-var audrey= audrey(myTerminalDisplay);
+var audrey2= require('audrey-two');
+var audrey= audrey2(myTerminalDisplay);
 
 //run your command and pass error objects to audrey
 
@@ -156,8 +156,9 @@ Audrey also gives you some colors to choose if you don't want to install chalk.j
 
 Audrey-two make use of...
 
- * [text-table](https://www.npmjs.com/package/text-table) module for a correct table display.
- * [chalk](https://www.npmjs.com/package/chalk)module for the color display.
+  [text-table](https://www.npmjs.com/package/text-table) module for a correct table display.
+  
+  [chalk](https://www.npmjs.com/package/chalk)module for the color display.
 
 People and plants really appreciate your great job!
 
