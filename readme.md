@@ -1,8 +1,9 @@
+
+![](https://raw.githubusercontent.com/llucbrell/audrey2/master/audrey.png)
+
 # audrey-two
 
 > View Control for Command Line Interface
-
-![](https://raw.githubusercontent.com/llucbrell/audrey2/master/audrey.png)
 
 When we build a CLI (Command Line Interface) we can find some troubles. While the software stays small it's easy to mantain and work with it. But as much a it grows... It could be a work for someone out of space.
 
