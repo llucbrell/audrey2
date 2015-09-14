@@ -5,7 +5,7 @@
 
 > View Control for Command Line Interface
 
-When we build a CLI (Command Line Interface) we can find some troubles. While the software stays small it's easy to mantain and work with it. But as much a it grows... It could be a work for someone out of space.
+When we build a CLI (Command Line Interface) we can find some troubles. While the software stays small it's easy to mantain and work with it. But as much a it grows... It could be a work for something out of space.
 
 
 Click this [link](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) if you'r interested in the MVC architecture style that Audrey want to apply.
@@ -13,31 +13,33 @@ Click this [link](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93contr
 
 ## Specifications
 
-This code try to complement other CLI tools like commander, unicorn etc., to implement the MVC on your terminal apps.
+This code try to complement other CLI tools like commander, unicorn, etc., to implement the MVC on your terminal apps.
 If you bind Audrey with them you can convert this tools in a complete and functional controller.
 Commander and others update the model, and call Audrey to give you the power of update view/s. 
 
-Audrey it's build as a nodeJS module, precisely as an clousure object factory. That way Audrey doesn't inffer in the code of your app.
+Audrey it's build as a nodeJS module, precisely as an clousure object factory. In that way, Audrey doesn't inffer in the code of your app.
 
-## How it does? 
+## What it does? 
 
-Feed Audrey with object errors and data extracted from your commands actions. This carnivorous plant get charge of the output console display and give to your users a little of sugar rather than only an ugly output option. 
+Feed Audrey with object errors and data extracted from your command actions. This carnivorous plant get charge of the output console display and give to your users a little of sugar rather than only an ugly output option. 
 
-You can combine one or more Audreys with your favorite nodeJS-CLI. Then you get more control of what you display and the way you do. And of course, you don't need to think so much about code-flow.
+You can combine one or more Audreys with your favorite nodeJS-CLI. Then you get more control of what you display and the way you do. Of course, after install audrey, you don't need to think so much about code-flow.
 
 
-If you feed Audrey with a header, footer & data for displaying... 
+If you feed Audrey with a header, body, footer & data for displaying... 
 It'll grow big and strong!
 
 
 ## Install
 
+Example
 ```
 $ npm install --save audrey-two
 ```
 
 ## Usage
 
+Example
 ```js
 var audrey2= require('audrey-two');
 var audrey= audrey2(myTerminalDisplay);
@@ -60,8 +62,10 @@ audrey.debug();
 
 ## Printing
 
-Audrey doesn't print nothing till "adrey.debug()" call. And then everything it's printed with your custom choices. Audrey also has two methods to inject data into it. As if it was "console.log()" but doesn't print it till the debug call and when it does, print it in the body. Look at customization for details. 
+Audrey doesn't print nothing untill "adrey.debug()" call. And then everything it's printed with your custom choices. 
+Audrey has two methods to inject data. As if it was "console.log()" printing into the body. Or by assignation of the values in the custom-object (view). Look at customization for details. 
 
+Example
 ```js
 //write on the same line
 audrey.write(data);
@@ -71,11 +75,11 @@ audrey.writeLine(data);
 
 ## Debug mode on... off
 
-You can hide the errors by passing a boolean false to the method. In this case audrey only print the header and the body. This is a feature added for --verbose cli option. 
+You can not execute the error debugger by passing a boolean false to the method. By this method, audrey only print the header, the body and the footer if you include some. It xcludes the execution of error list. This option is good for make --verbose cli option for your apps. 
 
 ![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura.png)
 
-
+Example
 ```js
 audrey.debug(false);
 ``` 
@@ -94,8 +98,9 @@ You must use this parts to organize your view. Include name components inside th
 
 Look at this terminal options defined before send it to Audrey.
 
+Example
 ```js
-var terminal={ 
+var terminal-view={ 
           header: [ ">Title" , "%symbol"],
           brand: "this is Audrey2",
           copyright: "MIT Seymour",
@@ -109,11 +114,11 @@ var terminal={
 
 ## View Components
 
-Audrey has some basic components to give you some custom options. Any component is more or less as if it was a tag. They have a reserved characther at the beggining of each string you include in the array. You only have to take care to include  this signs into the header, body and footer's array.
+Audrey has some basic components to give you some custom options. Every component is more or less as if it was a tag. They have a reserved characther (taggy) at the beggining of each string. You have to include this taggies into the header, body and footer's array or audrey will not see them.
 
-For example
+Example
 ```js
-var object= 
+var view= 
 {header:[">brand",">brand2","?advise"]
  body:["%errorsBar"],
  footer:["&mycopyright"]}
@@ -140,41 +145,57 @@ Alignment types:
 
 ## Colors
 
-If you want to add colors to your view, only add a property colors with an object of whatever component you want to color  with chalk.colorName.
+If you want to add colors to your view, you only have to add a property colors with an object of whatever component you want to color.
 
+Example
 ```js
-  var color=chalk.bgGreen;
+  var view= 
+ {header:[">brand",">brand2","?advise"]
+  body:["%errorsBar"],
+  footer:["&mycopyright"],
+  colors:{
+  brand: ,
+  advise: "yellow"
+  }}
 ```
 
-Audrey also gives you some colors to choose if you don't want to install chalk.js
+Audrey also gives you some colors to choose if you don't want to install chalk.js, at this moment not working with tables.
 
+Example
 ```js
   var red='red';//'blue', 'green', etc.,  
+  view.colors.advise= red;
 ```
 
 ## Dependencies
 
 Audrey-two make use of...
 
-  [text-table](https://www.npmjs.com/package/text-table) module for a correct table display.
-  
-  [chalk](https://www.npmjs.com/package/chalk)module for the color display.
 
-People and plants really appreciate your great job!
+* [text-table](https://www.npmjs.com/package/text-table) module for a correct table display.
+  
+* [chalk](https://www.npmjs.com/package/chalk) module for the color display.
+
+* [string-length](https://www.npmjs.com/package/string-length) module for the color display.
+
+
+People and plants really appreciate your great code!
 
 ## Contribute
 
 Help Audrey to grow with human blood..
 Now, choose one of this topics and don't become a dentist!
 
-- horrible big fonts support - from string to big font
-- bloody progress bar
-- terriffic 
+- horrible transformations from string to big font
+- bloody progress bar for lots of data
+- hypnotic frame animation support
+- strange image display
+- terriffic code examples and possible app structures
 
 
 <!-- Feed audrey with data from temp files
 -->
-<!---display of more than ascii symbols
+<!---display more than ascii symbols
 -->
 
 ## License
