@@ -156,8 +156,8 @@ Audrey also gives you some colors to choose if you don't want to install chalk.j
 
 Audrey-two make use of...
 
-* ![text-table](https://www.npmjs.com/package/text-table) module for a correct table display.
-* ![chalk](https://www.npmjs.com/package/chalk)module for the color display.
+ * [text-table](https://www.npmjs.com/package/text-table) module for a correct table display.
+ * [chalk](https://www.npmjs.com/package/chalk)module for the color display.
 
 People and plants really appreciate your great job!
 
