@@ -155,7 +155,7 @@ Example
   footer:["&mycopyright"],
   colors:{
   brand: "red",
-  advise: "green";
+  advise: "green"
   }}
 ```
 

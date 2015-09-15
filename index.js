@@ -203,8 +203,8 @@ function printBlock(block){
                   printTable(block[name]); 
                   break;            
                 default:
-                  throw audreyErrors.noComponent.message+=block[name];
-                  break;
+                  var audreyErrorNoComp= audreyErrors.noComponent.message + block[name];
+                  throw audreyError;
               }       
       
       }
@@ -240,8 +240,14 @@ function printChange(simName){
 }
 
 function checkArrayLength(name, minLength, maxLength){
-   if(terminal[name].length> maxLength) throw audreyErrors.maxArrayLength+= name;
-   if(terminal[name].length< minLength) throw audreyErrors.minArrayLength+= name;
+   if(terminal[name].length> maxLength){
+    var audreyErrorMax= audreyErrors.maxArrayLength + name;
+    throw audreyError;
+   } 
+   if(terminal[name].length< minLength){
+    var audreyErrorMin=audreyErrors.minArrayLength + name;
+    throw audreyError;
+   }
 }
 
 
@@ -267,7 +273,8 @@ function checkProperties(name){
     }
   }
   if(bul!==true){//if its finded the statement of the tag
-    throw audreyErrors.defined.message+= name;
+    var audreyErrorDefined=audreyErrors.defined.message + name;
+    throw audreyErrorDefined;
     }  
 }
 
@@ -277,8 +284,7 @@ var name= simName.slice(1); //delete simbol of the name
   checkColors(name);
     var copyoutput=terminal[name].split(" ");//get the words
     console.log(); 
-    console.log(terminal.colors[name](copyoutput[0]
-      +" \xA9 "+copyoutput.slice(1).join(" ")));
+    console.log(terminal.colors[name](copyoutput[0] +" \xA9 "+copyoutput.slice(1).join(" ")));
     console.log();//output the license name + symbol + name
 }
 
@@ -362,7 +368,7 @@ var name= simName.slice(1); //delete simbol of the name
 checkProperties(name);
 
 var opts = {
-        stringLength: function(tbl) { return stringL(tbl) }
+        stringLength: function(tbl) { return stringL(tbl); }
         };
 if(terminal[name].align) opts.align= terminal[name].align;        
 var tbl = table(terminal[name].data, opts);    
