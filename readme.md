@@ -1,7 +1,7 @@
 
 ![](https://raw.githubusercontent.com/llucbrell/audrey2/master/audrey.png)
 
-# audrey-two
+[![Build Status](https://travis-ci.org/llucbrell/audrey2.svg?branch=master)](https://travis-ci.org/llucbrell/audrey2)
 
 > View Control for Command Line Interface
 
