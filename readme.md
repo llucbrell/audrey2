@@ -126,7 +126,7 @@ var view=
 
 ## Components
 
-1. >mystrings: "string" | any string
+1. &gt;mystrings: "string" | any string
 2. &copyright: "string" | get two or more words. First, license's name and then the author, add the copyright symbol 
 4. ?info: "string" | change color of the string with the errors
 5. %symbolProgress:  "string" | change color symbol with errors you can use it as jasmine/mocha error checker
@@ -154,16 +154,22 @@ Example
   body:["%errorsBar"],
   footer:["&mycopyright"],
   colors:{
-  brand: ,
-  advise: "yellow"
+  brand: "red",
+  advise: "green";
   }}
 ```
 
-Audrey also gives you some colors to choose if you don't want to install chalk.js, at this moment not working with tables.
+Example
+```js
+  var red= "red";  //other colors as green
+  view.colors.advise= red;
+```
+Audrey also gives you chalk suport colors. But you have to install this module or node will bring you an error.
 
 Example
 ```js
-  var red='red';//'blue', 'green', etc.,  
+  var chalk= require('chalk');
+  var red= chalk.red.bold.underline;
   view.colors.advise= red;
 ```
 
@@ -186,7 +192,7 @@ People and plants really appreciate your great code!
 Help Audrey to grow with human blood..
 Now, choose one of this topics and don't become a dentist!
 
-- horrible transformations from string to big font
+- horrible transformations from string to big fonts
 - bloody progress bar for lots of data
 - hypnotic frame animation support
 - strange image display
