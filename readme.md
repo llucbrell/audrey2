@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.org/llucbrell/audrey2.svg?branch=master)](https://travis-ci.org/llucbrell/audrey2)
 
-> View Control for Command Line Interface
+## View Control for Command Line Interface
 
 When we build a CLI (Command Line Interface) we can find some troubles. While the software stays small it's easy to mantain and work with it. But as much a it grows... It could be a work for something out of space.
 
