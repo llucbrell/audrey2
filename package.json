@@ -4,7 +4,7 @@
   "description": "View Control for Command Line Interface",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt --verbose"
   },
   "keywords": [
     "CLI",
@@ -28,7 +28,11 @@
     "string-length": "^1.0.1",
     "text-table": "^0.2.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "0.1.13",
+    "grunt-contrib-jshint": "^0.11.2"
+    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/llucbrell/audrey2.git"
