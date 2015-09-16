@@ -1,5 +1,6 @@
 
 module.exports= function(object){
+"use strict";
 //stores all the options for the user
 var terminal=object;
 
