@@ -40,7 +40,7 @@ var expectErrors= [
 {code:"W05", message:"Does it have to be mine?", aux:"Feed me!"}];
 
 audrey.feed("W05", "Does it have to be human?", "Feed me!");
-audrey.feed("W05", "Does it have to b mine?", "Feed me!");
+audrey.feed("W05", "Does it have to be mine?", "Feed me!");
 
     //EXPECTATION 1
     expect(audrey.getErrors()).toEqual(expectErrors);
