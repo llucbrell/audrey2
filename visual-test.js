@@ -104,7 +104,7 @@ var audrey= audrey2(myTerminal);
 
 audrey.writeLine("");
 
-
+audrey.seed(["audrey-tables-#"]);
 audrey.feed("W05", "Does it have to be human?", "Feed me!");
 audrey.feed("W05", "Does it have to be mine?", "Feed me!");
 audrey.feed("S002", "The Audrey Two is not a healthy girl.", "Strictly between us - neither is the Audrey One");

@@ -49,6 +49,28 @@ audrey.feed("W05", "Does it have to be mine?", "Feed me!");
 
 
 
+var customObject={
+  header:[">b"],
+  body:[">b", "#t"],
+  footer:[">b"],
+  b:"print this",
+  t:{data:[["please", "print", "this"]], align:["l","r","l"]},
+  colors:{b:"red"}
+}
+
+//optional for object factories
+var audrey=audrey2(customObject);
+   
+
+it("must admit path array of tables", function() {
+audrey.seed(["audrey-tables-#0", "audrey-chorri-?0"]);
+
+
+
+expect(audrey.taggyHarvest()).toEqual(["#0","?0"]);
+
+}); 
+
 
 });
 

@@ -3,6 +3,7 @@ module.exports= function(object){
 "use strict";
 //stores all the options for the user
 var terminal=object;
+var taggies=[]; //stores the taggy codes
 
 //modules load
 var chalk= require('chalk');
@@ -44,12 +45,17 @@ return{
            write: function(data){mess+=data;},
        writeLine: function(data){mess+=data+"\n";},
     //return the errors to the user        
-       getErrors: function(){return terminal.errors;}
+       getErrors: function(){return terminal.errors;},
+    taggyHarvest: function(){return taggies;}
           
 };
 
 
 function putSeeds(arrayPaths){
+  arrayPaths.forEach(function(element){
+    var tagy= element.substr(element.length-2,element.length-1);
+    taggies.push(tagy);
+  });
 
 }
 
