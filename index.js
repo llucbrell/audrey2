@@ -20,6 +20,7 @@ minArrayLength:{code:"E06", message:"Array can't be smaller than 3 -arrayName --
 //set the colors of the terminal
 checkUserColors(terminal.colors);
 
+var bool=true;
 var ers;
 var warn;
 var suc;
@@ -30,19 +31,27 @@ var properties= Object.getOwnPropertyNames(terminal);
 var colors=Object.getOwnPropertyNames(terminal.colors);
 
 return{  
-    //control error array
+    //control error and mdules arrays
+            seed: function(arrayPaths){ putSeeds(arrayPaths);},
             feed: function(index, message, aux){ addControl(index, message, aux);},
     //simple error messages
     printSuccess: function(message){aSuccess(message);},
     printWarning: function(message){aWarning(message);},
       printError: function(message){aError(message);},
     //run the debuger and print into terminal
-           debug: function(bool){printErrors(bool);},
-       getErrors: function(){return terminal.errors;},
+           debug: function(boolean){bool= boolean;},
+            talk: function(){talk();}, //print over screen
            write: function(data){mess+=data;},
-       writeLine: function(data){mess+=data+"\n";}
+       writeLine: function(data){mess+=data+"\n";},
+    //return the errors to the user        
+       getErrors: function(){return terminal.errors;}
+          
 };
 
+
+function putSeeds(arrayPaths){
+
+}
 
 
 //FUNCTIONS FOR THE CLI RESPONSE..
@@ -130,7 +139,7 @@ function addControl(ucode, umessage, uaux){//add error to audrey
   terminal.errors.push(errObject);
 }
 
-function printErrors(bool){
+function talk(){
 /* prints on the console, check first for errors and 
  * prints the structure, it's the core of this program
  * follow it and you follow the code flow 

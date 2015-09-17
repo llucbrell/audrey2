@@ -126,3 +126,4 @@ audrey.feed("E05", "this is an error");
 //audrey.write("feeeeed meeee.... Seymour!!!");
 
 audrey.debug(false);
+audrey.talk();
