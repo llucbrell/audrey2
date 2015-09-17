@@ -1,6 +1,6 @@
 {
   "name": "audrey-two",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "View Control for Command Line Interface",
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-cli": "0.1.13",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-jshint": "^0.11.2",
     "grunt-shell": "^1.1.2"
   },
