@@ -43,9 +43,9 @@ var myTerminal={header: [ ">brand"],
 +"  [__)._. _  _ ._. _  __ __ \n"   
 +"  |   [  (_)(_][  (/,_) _)  \n"   
 +"            ._| "*/
-   
+    ,info: "please"
    			   ,copyright:"MIT Lucas_C / llucbrell",
-   			   body:["#table"],
+   			   body:["??info"],
 				//symbolProgress:"░",
 				//change:["success", "warning", "error"],
 				colors:
@@ -104,7 +104,7 @@ var audrey= audrey2(myTerminal);
 
 audrey.writeLine("");
 
-audrey.seed(["audrey-tables-#"]);
+audrey.seed(["audrey-tables-##", "audrey-info-??"]);
 audrey.feed("W05", "Does it have to be human?", "Feed me!");
 audrey.feed("W05", "Does it have to be mine?", "Feed me!");
 audrey.feed("S002", "The Audrey Two is not a healthy girl.", "Strictly between us - neither is the Audrey One");

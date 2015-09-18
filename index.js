@@ -53,7 +53,9 @@ return{
 
 function putSeeds(arrayPaths){
   arrayPaths.forEach(function(element){
-    var tagy= element.substr(element.length-2,element.length-1);
+    var tagy={code:"", path:""};
+    tagy.code= element.substr(element.length-2,element.length-1);
+    tagy.path= element.substr(element);
     taggies.push(tagy);
   });
 
@@ -164,6 +166,9 @@ function talk(){
    }
    else suc++;
  });
+  terminal.ers= ers;
+  terminal.warn=warn;
+  terminal.suc=suc;
  
 //check the header and print it, then the body
 check("header");
@@ -198,7 +203,23 @@ function check(name){
 
 //checks the different components
 function printBlock(block){
-  for(var name in block){            
+  for(var name in block){ 
+    for(var i=0; i<taggies.length; i++){
+      var code=block[name].substr(0,2);
+      console.log(taggies[i].code);
+
+   // taggies.forEach(function(element){
+      if(taggies[i].code === code){
+        console.log("Check");
+        var audreySeed= require("../"+taggies[i].path+"/index.js");
+        var seed= audreySeed();
+        // checkProperties(name); 
+         //checkColors(name);
+         seed.grow(block[name], terminal);
+      }
+    }//);
+
+  /*           
        switch (block[name][0]){
                 case '>':
                   printBrand(block[name]);
@@ -222,7 +243,7 @@ function printBlock(block){
                   var audreyErrorNoComp= audreyErrors.noComponent.message + block[name];
                   throw audreyError;
               }       
-      
+      */
       }
 }
 

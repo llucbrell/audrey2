@@ -51,7 +51,7 @@ audrey.feed("W05", "Does it have to be mine?", "Feed me!");
 
 var customObject={
   header:[">b"],
-  body:[">b", "#t"],
+  body:[">b", "#0t"],
   footer:[">b"],
   b:"print this",
   t:{data:[["please", "print", "this"]], align:["l","r","l"]},
@@ -67,7 +67,13 @@ audrey.seed(["audrey-tables-#0", "audrey-chorri-?0"]);
 
 
 
-expect(audrey.taggyHarvest()).toEqual(["#0","?0"]);
+expect(audrey.taggyHarvest()).toEqual([{code:"#0",path:"audrey-tables-#0"},{code:"?0", path:"audrey-chorri-?0"}]);
+
+}); 
+
+t("must recognize new taggies", function() {
+
+expect(audrey.talk()).toEqual('algo');
 
 }); 
 
