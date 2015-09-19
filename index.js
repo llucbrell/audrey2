@@ -7,6 +7,7 @@ var taggies=[]; //stores the taggy codes
 
 //modules load
 var chalk= require('chalk');
+var Q= require('q');
 terminal.colors.default= chalk.white.bold;
 
 //for error in the use of this library
@@ -41,6 +42,7 @@ var actualBlock;
 
 var childProcess=[];
 var count=0;
+var recallback;
 
 return{  
     //control error and mdules arrays
@@ -172,10 +174,52 @@ function talk(){
   terminal.warn=warn;
   terminal.suc=suc;
  
+/*
+Q.fcall(check("header")).then(check("body")).then(check("footer")
+  .then(function(){
+    console.log("finished");
+  }).catch(function(error){
+
+  }).done();
+*/
+
+
+/*
+check("header").then(check("body")).then(
+  function(){check("footer");})
+.fail(function(err){
+console.log("there is some error"+err);
+}).done();*/
+
+/*
+var promise = new Promise(function(resolve, reject) {
+  // do a thing, possibly async, then…
+
+  
+});
+
+promise.then(function(response) {
+   check("header");
+}).then(function(response) {
+  check("body");
+});
+
+
+promise.then(function(result) {
+  check("body");
+  console.log(result); // "Stuff worked!"
+}, function(err) {
+  check("body");
+  console.log(err); // Error: "It broke"
+});
+*/
+
 //check the header and print it, then the body
 steps(function(){
-check("header", function(){
-  check("body", function(){
+checkCallback("header", function(){
+  console.log("heelo");
+
+  checkCallback("body", function(){
     printMess();
     //displays the error messages
     if(bool!==false){
@@ -193,7 +237,7 @@ check("header", function(){
       }
 
      // Check the footer and print it
-     check("footer", function(){console.log(" ");});
+     checkCallback("footer", function(){console.log(" ");});
      
     });
   }); 
@@ -204,17 +248,27 @@ check("header", function(){
 
 }
 
-function check(name, callback){
- 
+function check(name){
+ var deferred= Q.defer();
  if(terminal[name]){
   reRunBlock(terminal[name],0);
-  callback();
+
  }
- 
+   return deferred.promise;
 }
 
 function steps(callback){
   callback();
+}
+
+function checkCallback(name, callback){
+ if(terminal[name]){
+  reRunBlock(terminal[name],0, function() {
+    console.log("callback"+name);
+    callback()
+  });
+
+ }
 }
 
 //checks the different components
@@ -282,7 +336,7 @@ function processReinit(){
     reRunBlock(scionBlock, 0);
 }
 
-function reRunBlock(block, index){
+function reRunBlock(block, index, callback){
   /*debugger
   console.log("\nBLOCK"+block);
   console.log("INDEX"+index);
@@ -312,12 +366,18 @@ function reRunBlock(block, index){
            var seed= audreySeed();
            var callbackname=block[i];
            seed.grow(callbackname, terminal);
+        
+           if(i===block.length-1){
+            if( callback) callback();
+            else recallback();
+           }
         }
 
     }
   }
   if(interf){
     interf=undefined;
+    recallback= callback;
     /*debugger
     console.log("RUNINTERF");
     console.log("\nBLOCK"+block);

@@ -26,6 +26,7 @@
   "dependencies": {
     "async": "^1.4.2",
     "chalk": "^1.1.1",
+    "q": "^1.4.1",
     "string-length": "^1.0.1",
     "text-table": "^0.2.0"
   },

@@ -3,7 +3,7 @@ var chalk=require('chalk');
 var chalkColor= chalk.blue.bold; 
 //or any other chalk color combination
 
-var myTerminal={header: [ ">>brand", "??info"],
+var myTerminal={header: [ ">>brand","??info"],
 			    brand:
   
    " ▄████▄   ▄▄▄        ██████ ▄▄▄█████▓ \n"
@@ -98,7 +98,7 @@ var myTerminal={header: [ ">>brand", "??info"],
 				  //logo:chalk.red.bold,	
 				  //change: "blue",			 
 				 ask:["first question","second", "third"],
-				//footer:["&2copyright", "??info", "??info"],
+				footer:["&2copyright", "??info", "??info"],
 				};
 
 var audrey2= require('./index.js');
