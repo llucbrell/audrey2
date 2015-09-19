@@ -9,6 +9,7 @@ var taggies=[]; //stores the taggy codes
 var chalk= require('chalk');
 var Q= require('q');
 terminal.colors.default= chalk.white.bold;
+terminal.default="";
 
 //for error in the use of this library
 var audreyErrors={
@@ -173,46 +174,6 @@ function talk(){
   terminal.ers= ers;
   terminal.warn=warn;
   terminal.suc=suc;
- 
-/*
-Q.fcall(check("header")).then(check("body")).then(check("footer")
-  .then(function(){
-    console.log("finished");
-  }).catch(function(error){
-
-  }).done();
-*/
-
-
-/*
-check("header").then(check("body")).then(
-  function(){check("footer");})
-.fail(function(err){
-console.log("there is some error"+err);
-}).done();*/
-
-/*
-var promise = new Promise(function(resolve, reject) {
-  // do a thing, possibly async, then…
-
-  
-});
-
-promise.then(function(response) {
-   check("header");
-}).then(function(response) {
-  check("body");
-});
-
-
-promise.then(function(result) {
-  check("body");
-  console.log(result); // "Stuff worked!"
-}, function(err) {
-  check("body");
-  console.log(err); // Error: "It broke"
-});
-*/
 
 //check the header and print it, then the body
 steps(function(){
@@ -243,9 +204,6 @@ checkCallback("header", function(){
   }); 
 });
 
-
-  
-
 }
 
 function check(name){
@@ -254,7 +212,6 @@ function check(name){
   reRunBlock(terminal[name],0);
 
  }
-   return deferred.promise;
 }
 
 function steps(callback){
@@ -271,36 +228,7 @@ function checkCallback(name, callback){
  }
 }
 
-//checks the different components
-/*
-function printBlock(block){
-  growing:  
-  for(var name in block){ 
-    var code=block[name].substr(0,2);
-    if (code=== ">>") printBrand(block[name]);
 
-    for(var i=0; i<taggies.length;i++){
-        
-        if (code==="xx") {//user lib needs all control-->callback-mode
-          interf=true;
-          interfPath="../"+taggies[i].path+"/index.js";
-          index=i;
-          scionName= block[name];
-          break growing;
-        }
-        if(taggies[i].code === code){
-           var audreySeed= require("../"+taggies[i].path+"/index.js");
-           var seed= audreySeed();
-           var callbackname=block[name];
-           seed.grow(callbackname, terminal);
-        }
-    }
-  }
- if(interf){
-  runInterf();
- }
-   
-}*/
 
 function runInterf(block){
   var audreyInterf= require(interfPath);
@@ -308,13 +236,9 @@ function runInterf(block){
 
   
 scionBlock.splice(0, indexb);
+if (scionBlock[0]===undefined) scionBlock.push(">>default");
+console.log(scionBlock);
 indexb=undefined;
-/*
-  scion.grow(scionName, terminal, 
-      function(block, index){
-        reRunBlock(block, index);
-
-           });*/ //works but exits if there is process.exit() in the scion
 
 //var args = [scionName, terminal];
 childProcess[count] = require('child_process').fork(interfPath, scion.grow(scionName, terminal));
@@ -323,14 +247,13 @@ childProcess[count] = require('child_process').fork(interfPath, scion.grow(scion
 process.on('exit', function (block, indexb) {
     childProcess[count].kill();
     processReinit();
-
 });
 
 }
 
 function processReinit(){
   
-  //console.log("scion");
+//console.log("scion");
 //console.log("reinit"+scionBlock);
 //console.log(scionBlock);
     reRunBlock(scionBlock, 0);
@@ -345,7 +268,11 @@ function reRunBlock(block, index, callback){
   for(var i=index; i<block.length; i++){
     //console.log("i"+i);
     var code=block[i].substr(0,2);
-    if (code=== ">>") printBrand(block[i]);
+    if (code=== ">>") {
+      printBrand(block[i]);
+      if(block[i].substr(2)==="default"){
+        recallback();
+      }}
     for(var ii=0; ii<taggies.length;ii++){
         
         if(taggies[ii].code === code){
