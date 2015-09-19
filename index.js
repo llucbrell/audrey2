@@ -37,6 +37,10 @@ var interfPath;
 var indexb;
 var scionName;
 var scionBlock;
+var actualBlock;
+
+var childProcess=[];
+var count=0;
 
 return{  
     //control error and mdules arrays
@@ -169,37 +173,49 @@ function talk(){
   terminal.suc=suc;
  
 //check the header and print it, then the body
-check("header");
-check("body");
-  
-printMess();
-//displays the error messages
-if(bool!==false){
- terminal.errors.forEach(function(element){
-    if (element.code[0]=== "S" || element.code[0]=== "s"){
-      aSuccess(element);
-    }
-    else if(element.code[0]=== "W" || element.code[0]=== "w"){
-      aWarning(element);
-    }
-    else if(element.code[0]=== "E" || element.code[0]=== "e"){
-      aError(element);
-    }
-   });
-  }
+steps(function(){
+check("header", function(){
+  check("body", function(){
+    printMess();
+    //displays the error messages
+    if(bool!==false){
+     terminal.errors.forEach(function(element){
+        if (element.code[0]=== "S" || element.code[0]=== "s"){
+          aSuccess(element);
+        }
+        else if(element.code[0]=== "W" || element.code[0]=== "w"){
+          aWarning(element);
+        }
+        else if(element.code[0]=== "E" || element.code[0]=== "e"){
+          aError(element);
+        }
+       });
+      }
 
- // Check the footer and print it
- check("footer");
+     // Check the footer and print it
+     check("footer", function(){console.log(" ");});
+     
+    });
+  }); 
+});
+
+
+  
+
+}
+
+function check(name, callback){
+ 
+ if(terminal[name]){
+  reRunBlock(terminal[name],0);
+  callback();
+ }
  
 }
 
-function check(name){
- if(terminal[name]){
-  reRunBlock(terminal[name],0);
- }
+function steps(callback){
+  callback();
 }
-
-
 
 //checks the different components
 /*
@@ -235,20 +251,23 @@ function printBlock(block){
 function runInterf(block){
   var audreyInterf= require(interfPath);
   var scion= audreyInterf();
-/*  
+
+  
+scionBlock.splice(0, indexb);
+indexb=undefined;
+/*
   scion.grow(scionName, terminal, 
       function(block, index){
         reRunBlock(block, index);
 
            });*/ //works but exits if there is process.exit() in the scion
 
-scionBlock=block;
-var args = [scionName, terminal];
-var childProcess = require('child_process').fork(interfPath, scion.grow(scionName, terminal));
-
+//var args = [scionName, terminal];
+childProcess[count] = require('child_process').fork(interfPath, scion.grow(scionName, terminal));
+//console.log(interfPath);
 
 process.on('exit', function (block, indexb) {
-    childProcess.kill();
+    childProcess[count].kill();
     processReinit();
 
 });
@@ -256,28 +275,39 @@ process.on('exit', function (block, indexb) {
 }
 
 function processReinit(){
-  interf=undefined;
-console.log(scionBlock);
-console.log("reinit"+scionBlock[indexb]);
-    reRunBlock(scionBlock, indexb);
+  
+  //console.log("scion");
+//console.log("reinit"+scionBlock);
+//console.log(scionBlock);
+    reRunBlock(scionBlock, 0);
 }
 
 function reRunBlock(block, index){
+  /*debugger
+  console.log("\nBLOCK"+block);
+  console.log("INDEX"+index);
+  console.log("myIND"+indexb); */
   growing:
   for(var i=index; i<block.length; i++){
+    //console.log("i"+i);
     var code=block[i].substr(0,2);
     if (code=== ">>") printBrand(block[i]);
     for(var ii=0; ii<taggies.length;ii++){
         
         if(taggies[ii].code === code){
+         /*debugger
+          console.log("COD"+code+" "+"TAG"+taggies[ii].code);
+          console.log("NAME"+block[i]);
+          console.log("myIND"+indexb);*/
           if (code==="xx") {//user lib needs all control-->callback-mode
           interf=true;
           interfPath="../"+taggies[ii].path+"/index.js";
           indexb=i+1;
+          scionBlock=block;
           scionName= block[i];
           break growing;
         }
-        
+           //console.log("PATH"+taggies[i].path);
            var audreySeed= require("../"+taggies[ii].path+"/index.js");
            var seed= audreySeed();
            var callbackname=block[i];
@@ -287,6 +317,12 @@ function reRunBlock(block, index){
     }
   }
   if(interf){
+    interf=undefined;
+    /*debugger
+    console.log("RUNINTERF");
+    console.log("\nBLOCK"+block);
+    console.log("INDEX"+index);
+    console.log("myIND"+indexb);*/
     runInterf(block);
   }
  

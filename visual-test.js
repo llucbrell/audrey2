@@ -3,7 +3,7 @@ var chalk=require('chalk');
 var chalkColor= chalk.blue.bold; 
 //or any other chalk color combination
 
-var myTerminal={header: [ ">>brand"],
+var myTerminal={header: [ ">>brand", "??info"],
 			    brand:
   
    " ▄████▄   ▄▄▄        ██████ ▄▄▄█████▓ \n"
@@ -45,7 +45,7 @@ var myTerminal={header: [ ">>brand"],
 +"            ._| "*/
     ,info: "ooooh... please... oh, oh, oh... pleeeeease!"
    			   ,copyright:"MIT Lucas_C / llucbrell",
-   			   body:["~~change","??info", "##table", 
+   			   body:["~1change","??info", "##table", 
            "xxask","&2copyright"],
 				symbolProgress:"░",
 				change:["success", "warning", "error"],
@@ -98,7 +98,7 @@ var myTerminal={header: [ ">>brand"],
 				  //logo:chalk.red.bold,	
 				  //change: "blue",			 
 				 ask:["first question","second", "third"],
-				//footer:["&2copyright"],
+				//footer:["&2copyright", "??info", "??info"],
 				};
 
 var audrey2= require('./index.js');
@@ -106,9 +106,14 @@ var audrey= audrey2(myTerminal);
 
 audrey.writeLine("");
 
-audrey.seed(["audrey-tables-##","audrey-errsign-%%",
+audrey.seed(["audrey-tables-##",
+
+  "audrey-sewcolor-text-~1",
+  
   "audrey-copyright-&2"
-  , "audrey-sewcolor-text-~~","audrey-sewcolor-??", "audrey-jaskit-xx"]);
+  
+  ,"audrey-sewcolor-??", 
+  "audrey-jaskit-xx"]);
 audrey.feed("W05", "Does it have to be human?", "Feed me!");
 audrey.feed("W05", "Does it have to be mine?", "Feed me!");
 audrey.feed("S002", "The Audrey Two is not a healthy girl.", "Strictly between us - neither is the Audrey One");
