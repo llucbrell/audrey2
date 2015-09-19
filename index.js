@@ -33,8 +33,10 @@ var colors=Object.getOwnPropertyNames(terminal.colors);
 //variables to control interfaces
 var interf;
 var interfPath;
-var index;
+
+var indexb;
 var scionName;
+var scionBlock;
 
 return{  
     //control error and mdules arrays
@@ -197,7 +199,10 @@ function check(name){
  }
 }
 
+
+
 //checks the different components
+/*
 function printBlock(block){
   growing:  
   for(var name in block){ 
@@ -225,39 +230,54 @@ function printBlock(block){
   runInterf();
  }
    
-}
+}*/
 
-function runInterf(){
-  console.log("breaked");
-  console.log(scionName);
-  console.log(index);
-  console.log(interfPath);
+function runInterf(block){
   var audreyInterf= require(interfPath);
   var scion= audreyInterf();
+/*  
   scion.grow(scionName, terminal, 
       function(block, index){
         reRunBlock(block, index);
 
-           });
+           });*/ //works but exits if there is process.exit() in the scion
+
+scionBlock=block;
+var args = [scionName, terminal];
+var childProcess = require('child_process').fork(interfPath, scion.grow(scionName, terminal));
+
+
+process.on('exit', function (block, indexb) {
+    childProcess.kill();
+    processReinit();
+
+});
+
+}
+
+function processReinit(){
+  interf=undefined;
+console.log(scionBlock);
+console.log("reinit"+scionBlock[indexb]);
+    reRunBlock(scionBlock, indexb);
 }
 
 function reRunBlock(block, index){
   growing:
   for(var i=index; i<block.length; i++){
     var code=block[i].substr(0,2);
-    console.log(block[i]);
     if (code=== ">>") printBrand(block[i]);
     for(var ii=0; ii<taggies.length;ii++){
         
         if(taggies[ii].code === code){
           if (code==="xx") {//user lib needs all control-->callback-mode
           interf=true;
-          console.log(block[i]);
           interfPath="../"+taggies[ii].path+"/index.js";
-          index=i;
+          indexb=i+1;
           scionName= block[i];
           break growing;
         }
+        
            var audreySeed= require("../"+taggies[ii].path+"/index.js");
            var seed= audreySeed();
            var callbackname=block[i];
@@ -267,14 +287,12 @@ function reRunBlock(block, index){
     }
   }
   if(interf){
-    runInterf();
+    runInterf(block);
   }
  
 }
  
-function exit(){
-  process.exit();
-}
+
 
 // direct injection of data after body
 function printMess(){

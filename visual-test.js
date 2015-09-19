@@ -47,7 +47,7 @@ var myTerminal={header: [ ">>brand"],
    			   ,copyright:"MIT Lucas_C / llucbrell",
    			   body:["~~change","??info", "##table", 
            "xxask","&2copyright"],
-				//symbolProgress:"░",
+				symbolProgress:"░",
 				change:["success", "warning", "error"],
 				colors:
 				{ info: chalk.magenta,
