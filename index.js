@@ -7,6 +7,7 @@ var taggies=[]; //stores the taggy codes
 
 //modules load
 var chalk= require('chalk');
+terminal.colors.default= chalk.white.bold;
 
 //for error in the use of this library
 var audreyErrors={
@@ -14,8 +15,6 @@ var audreyErrors={
 defined:{code:"E02", message:"Not defined "},
 noComponent:{code:"E03", message:"There isn't a tag deffined in the view for "},
 noColor:{code:"E04", message:"There is no colors object defined"},
-maxArrayLength:{code:"E05", message:"Array can't be bigger than 3 -arrayName -->"},
-minArrayLength:{code:"E06", message:"Array can't be smaller than 3 -arrayName -->"}
 };
 
 //set the colors of the terminal
@@ -26,10 +25,16 @@ var ers;
 var warn;
 var suc;
 var mess="";
-
+var ret;
 
 var properties= Object.getOwnPropertyNames(terminal);
 var colors=Object.getOwnPropertyNames(terminal.colors);
+
+//variables to control interfaces
+var interf;
+var interfPath;
+var index;
+var scionName;
 
 return{  
     //control error and mdules arrays
@@ -44,18 +49,19 @@ return{
             talk: function(){talk();}, //print over screen
            write: function(data){mess+=data;},
        writeLine: function(data){mess+=data+"\n";},
-    //return the errors to the user        
+    //return errors and other staff to the user        
        getErrors: function(){return terminal.errors;},
-    taggyHarvest: function(){return taggies;}
+      getTaggies: function(){return taggies;},
+         getData: function(){return updatedData;}
           
 };
 
-
+//SETS THE NEW AUDREY-TWO-MODULES
 function putSeeds(arrayPaths){
   arrayPaths.forEach(function(element){
     var tagy={code:"", path:""};
-    tagy.code= element.substr(element.length-2,element.length-1);
-    tagy.path= element.substr(element);
+    tagy.code= element.substr(element.length-2, element.length-1);
+    tagy.path= element.substr(0, element.length-3);
     taggies.push(tagy);
   });
 
@@ -71,7 +77,7 @@ function putSeeds(arrayPaths){
       }
   }
   else{
-    throw audreyErrors.noColor.message;
+    throw new Error("There is no colors object defined");
   }
 }
 
@@ -105,39 +111,29 @@ function setUserColor(option){
                 }
                 return col;
 }
+//checks the colors in printBrand
+function checkColors(name){
+  var colors=Object.getOwnPropertyNames(terminal.colors);
+  var bul=false; // boolean to control if its defined the property
+
+  for(var i=0; i<colors.length; i++){//iterate over prop names
+
+    if(colors[i] === name){//if it is
+      bul=true;
+    }
+  }
+  if(bul!==true){//if its finded the statement of the tag
+    terminal.colors[name]=terminal.colors.default;
+    } 
+}
 
 //print the ascii image brand
 function printBrand(simName){
-var name= simName.slice(1); //delete simbol of the name 
+var name= simName.slice(2); //delete simbol of the name 
   checkProperties(name); 
   checkColors(name);
       console.log(); 
       process.stdout.write(terminal.colors[name](terminal[name]));
-}
-
-//print the info message
-function infoSuccess(simName){
-var name= simName.slice(1); //delete simbol of the name
-checkProperties(name);//checks if exists
-checkColors(name);//checks if there is colors
-     console.log(); 
-     process.stdout.write(terminal.colors.success(terminal[name]));
-}
-
-function infoWarning(simName){
-var name= simName.slice(1); //delete simbol of the name
-checkProperties(name);//checks if exists
-checkColors(name);//checks if there is colors
-     console.log(); 
-     process.stdout.write(terminal.colors.warning(terminal[name]));
-}
-
-function infoError(simName){
-var name= simName.slice(1); //delete simbol of the name
-checkProperties(name);
-checkColors(name);
-     console.log(); 
-     process.stdout.write(terminal.colors.error(terminal[name]));
 }
 
 function addControl(ucode, umessage, uaux){//add error to audrey
@@ -197,54 +193,87 @@ if(bool!==false){
 
 function check(name){
  if(terminal[name]){
-  printBlock(terminal[name]);
+  reRunBlock(terminal[name],0);
  }
 }
 
 //checks the different components
 function printBlock(block){
+  growing:  
   for(var name in block){ 
-    for(var i=0; i<taggies.length; i++){
-      var code=block[name].substr(0,2);
-      console.log(taggies[i].code);
+    var code=block[name].substr(0,2);
+    if (code=== ">>") printBrand(block[name]);
 
-   // taggies.forEach(function(element){
-      if(taggies[i].code === code){
-        console.log("Check");
-        var audreySeed= require("../"+taggies[i].path+"/index.js");
-        var seed= audreySeed();
-        // checkProperties(name); 
-         //checkColors(name);
-         seed.grow(block[name], terminal);
-      }
-    }//);
+    for(var i=0; i<taggies.length;i++){
+        
+        if (code==="xx") {//user lib needs all control-->callback-mode
+          interf=true;
+          interfPath="../"+taggies[i].path+"/index.js";
+          index=i;
+          scionName= block[name];
+          break growing;
+        }
+        if(taggies[i].code === code){
+           var audreySeed= require("../"+taggies[i].path+"/index.js");
+           var seed= audreySeed();
+           var callbackname=block[name];
+           seed.grow(callbackname, terminal);
+        }
+    }
+  }
+ if(interf){
+  runInterf();
+ }
+   
+}
 
-  /*           
-       switch (block[name][0]){
-                case '>':
-                  printBrand(block[name]);
-                  break;
-                case '?':
-                  printInfo(block[name]);
-                  break;
-                case '&':
-                  printCopyright(block[name]);
-                  break;
-                case '%':
-                  printProgress(block[name]);
-                  break; 
-                case '~':
-                  printChange(block[name]); 
-                  break;
-                case '#':
-                  printTable(block[name]); 
-                  break;            
-                default:
-                  var audreyErrorNoComp= audreyErrors.noComponent.message + block[name];
-                  throw audreyError;
-              }       
-      */
-      }
+function runInterf(){
+  console.log("breaked");
+  console.log(scionName);
+  console.log(index);
+  console.log(interfPath);
+  var audreyInterf= require(interfPath);
+  var scion= audreyInterf();
+  scion.grow(scionName, terminal, 
+      function(block, index){
+        reRunBlock(block, index);
+
+           });
+}
+
+function reRunBlock(block, index){
+  growing:
+  for(var i=index; i<block.length; i++){
+    var code=block[i].substr(0,2);
+    console.log(block[i]);
+    if (code=== ">>") printBrand(block[i]);
+    for(var ii=0; ii<taggies.length;ii++){
+        
+        if(taggies[ii].code === code){
+          if (code==="xx") {//user lib needs all control-->callback-mode
+          interf=true;
+          console.log(block[i]);
+          interfPath="../"+taggies[ii].path+"/index.js";
+          index=i;
+          scionName= block[i];
+          break growing;
+        }
+           var audreySeed= require("../"+taggies[ii].path+"/index.js");
+           var seed= audreySeed();
+           var callbackname=block[i];
+           seed.grow(callbackname, terminal);
+        }
+
+    }
+  }
+  if(interf){
+    runInterf();
+  }
+ 
+}
+ 
+function exit(){
+  process.exit();
 }
 
 // direct injection of data after body
@@ -256,50 +285,6 @@ function printCBrand(name, tagColor){
       process.stdout.write(tagColor(name));
 }
 
-function printChange(simName){
-  var name= simName.slice(1); //delete simbol of the name
-  checkProperties(name);
-  checkArrayLength(name, 3, 3);
-  if(terminal.colors[name]){
-    if(ers>0){printCBrand(terminal[name][2], terminal.colors[name]);}
-    if(ers===0 && warn===0){printCBrand(terminal[name][0],terminal.colors[name]);}
-    if(ers===0 && warn>0){printCBrand(terminal[name][1],terminal.colors[name]);}
-  }
-  else{
-    checkColors("error");
-    checkColors("warning");
-    checkColors("success");
-    if(ers>0){printCBrand(terminal[name][2], terminal.colors.error);}
-    if(ers===0 && warn===0){printCBrand(terminal[name][0], terminal.colors.success);}
-    if(ers===0 && warn>0){printCBrand(terminal[name][1], terminal.colors.warning);}  
-  }
- 
-}
-
-function checkArrayLength(name, minLength, maxLength){
-   if(terminal[name].length> maxLength){
-    var audreyErrorMax= audreyErrors.maxArrayLength + name;
-    throw audreyError;
-   } 
-   if(terminal[name].length< minLength){
-    var audreyErrorMin=audreyErrors.minArrayLength + name;
-    throw audreyError;
-   }
-}
-
-
-function checkColors(name){
-  var bul=false; // boolean to control if its defined the property
-  for(var i=0; i<colors.length; i++){//iterate over prop names
-    if(colors[i] === name){//if it is
-      bul=true;
-    }
-  }
-  if(bul!==true){//if its finded the statement of the tag
-    //throw audreyErrors.color.message+= name;
-    terminal.colors[name]=chalk.white.bold;
-    } 
-}
 
 function checkProperties(name){
   var bul=false; // boolean to control if its defined the property
@@ -309,56 +294,9 @@ function checkProperties(name){
       bul=true;
     }
   }
-  if(bul!==true){//if its finded the statement of the tag
-    var audreyErrorDefined=audreyErrors.defined.message + name;
-    throw audreyErrorDefined;
+  if(bul!==true){// it isn't finded the statement of the tag
+    throw new Error('Not defined '+name);
     }  
-}
-
-function printCopyright(simName){ 
-var name= simName.slice(1); //delete simbol of the name 
-  checkProperties(name);
-  checkColors(name);
-    var copyoutput=terminal[name].split(" ");//get the words
-    console.log(); 
-    console.log(terminal.colors[name](copyoutput[0] +" \xA9 "+copyoutput.slice(1).join(" ")));
-    console.log();//output the license name + symbol + name
-}
-
-
-function printProgress(simName){
-  var name= simName.slice(1); //delete simbol of the name 
-checkProperties(name);
-checkColors("error");
-checkColors("warning");
-checkColors("success");
-process.stdout.write("   ");    
- 
-terminal.errors.forEach(function(element){
-   if(element.code[0]=== "E"){    
-      process.stdout.write(terminal.colors.error(terminal.symbolProgress));    
-    }
-    else if(element.code[0]=== "W"){
-      process.stdout.write(terminal.colors.warning(terminal.symbolProgress));    
-   }
-   else{
-      process.stdout.write(terminal.colors.success(terminal.symbolProgress));    
-   }
-  
-  });
-process.stdout.write("\n");    
-  console.log();    
-
-}
-
-function printInfo(simName){
-  checkColors("error");
-  checkColors("warning");
-  checkColors("success");
-  checkColors("aux");
-  if(ers>0){infoError(simName);}
-  if(ers===0 && warn===0){infoSuccess(simName);}
-  if(ers===0 && warn>0){infoWarning(simName);}
 }
 
 function aError(errorObject){
@@ -393,25 +331,6 @@ function aWarning(errorObject){
     console.log(terminal.colors.warning(terminal.symbolProgress+" Warning: "+errorObject.message));
     console.log();
   }
-}
-
-function printTable(simName){
-
-var stringL= require('string-length');
-var table= require('text-table');
-
-var name= simName.slice(1); //delete simbol of the name 
-
-checkProperties(name);
-
-var opts = {
-        stringLength: function(tbl) { return stringL(tbl); }
-        };
-if(terminal[name].align) opts.align= terminal[name].align;        
-var tbl = table(terminal[name].data, opts);    
-
- console.log();
- console.log(tbl);
 }
 
 };

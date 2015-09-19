@@ -67,11 +67,11 @@ audrey.seed(["audrey-tables-#0", "audrey-chorri-?0"]);
 
 
 
-expect(audrey.taggyHarvest()).toEqual([{code:"#0",path:"audrey-tables-#0"},{code:"?0", path:"audrey-chorri-?0"}]);
+expect(audrey.getTaggies()).toEqual([{code:"#0",path:"audrey-tables-#0"},{code:"?0", path:"audrey-chorri-?0"}]);
 
 }); 
 
-t("must recognize new taggies", function() {
+it("must recognize new taggies", function() {
 
 expect(audrey.talk()).toEqual('algo');
 

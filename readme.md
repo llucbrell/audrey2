@@ -55,14 +55,14 @@ audrey.feed("W01", "A plant from out Space!");
 audrey.feed("S001", "I'm Alive!");
 //or pass some auxiliar to print in the same line
 adrey.feed("S002", "This is a new kind of plant!", cli.name);
-audrey.debug();
+audrey.talk();
 ```
 
 ![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura2.png)
 
 ## Printing
 
-Audrey doesn't print nothing untill "adrey.debug()" call. And then everything it's printed with your custom choices. 
+Audrey doesn't print nothing untill "adrey.talk()" call. And then everything it's printed with your custom choices. 
 Audrey has two methods to inject data. As if it was "console.log()" printing into the body. Or by assignation of the values in the custom-object (view). Look at customization for details. 
 
 Example
@@ -73,7 +73,7 @@ audrey.write(data);
 audrey.writeLine(data);
 ```
 
-## Debug mode on... off
+## Debug mode... turn off!
 
 You can not execute the error debugger by passing a boolean false to the method. By this method, audrey only print the header, the body and the footer if you include some. It xcludes the execution of error list. This option is good for make --verbose cli option for your apps. 
 
