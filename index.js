@@ -303,8 +303,10 @@ function run(){
   terminal.warn=warn;
   terminal.suc=suc;
 //check the header and print it, then the body
-//steps(function(){
+//steps(function(){  
+if(terminal.header){
 checkCallback("header", function(){
+  if(terminal.body && terminal.body[0]){
   checkCallback("body", function(){
     printMess();
     //displays the error debug audrey-messages
@@ -324,7 +326,40 @@ checkCallback("header", function(){
      // Check the footer and print it
      checkCallback("footer", function(){console.log("");});     
     });
-  }); 
+  }
+  else{
+    if (terminal.footer) checkCallback("footer", function(){console.log("");});
+  }
+  });
+  }
+  else{
+    if(terminal.body && terminal.body[0]){
+  checkCallback("body", function(){
+    printMess();
+    //displays the error debug audrey-messages
+    if(bool!==false){
+     terminal.errors.forEach(function(element){
+        if (element.code[0]=== "S" || element.code[0]=== "s"){
+          aSuccess(element);
+        }
+        else if(element.code[0]=== "W" || element.code[0]=== "w"){
+          aWarning(element);
+        }
+        else if(element.code[0]=== "E" || element.code[0]=== "e"){
+          aError(element);
+        }
+       });
+      }
+     // Check the footer and print it
+     checkCallback("footer", function(){console.log("");});     
+    });
+  }
+  else{
+    if (terminal.footer) checkCallback("footer", function(){console.log("");});
+  }
+
+  }
+   
 //});
 }
 /*
@@ -368,8 +403,9 @@ function reRunBlock(block, index, callback){
     var code=block[i].substr(0,2);//                                            |      |
     if (code=== ">>") {//The only tag  by deffault                         |    |      |
       printBrand(block[i]);//                                              |    |      |
-      if(block[i].substr(2)==="default"){// fixes the bug of last element  |    |      |
-        recallback();//                                                    v    |      |
+      if(block[i].substr(2)==="default"){
+        if(callback) callback();// // fixes the bug of last element  |    |      |
+        else recallback();//                                                    v    |      |
       }//                                                                       |      |
       if(i===block.length-1){ //                                 |              |      |
             if(callback) callback();//                           |              |      |

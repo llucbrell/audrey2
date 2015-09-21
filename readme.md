@@ -191,11 +191,11 @@ Here you have a short list of components you can find in npm. Of course you can 
 
 If you want to search for audrey-seeds just look for in npm
 
-1. audrey-copyright: "string" | get two or more words. First, license's name and then the author, add the copyright symbol 
-2. adrey-sewcolor: "string" | change color of the string with the errors
-3. audrey-errsign:  "string" | change color symbol with errors you can use it as jasmine/mocha error checker. Write one symbol for each error, using 3 different colors.
-4. audrey-sewcolor-text: ["three","srting","array"] | three strings that change if there are errors or not. If it's not a color defined uses the success, warning, error colors.
-7. audrey-tables: {array:[["array","of", "arrays"]["each", "array", "for"]["each", "line.", "Colors"]["only", "with", "chalk"]], align: ["letter", "for", "column"]}
+* [audrey-copyright](https://www.npmjs.com/package/audrey-copyright): "string" | get two or more words. First, license's name and then the author, add the copyright symbol 
+* [adrey-sewcolor](https://www.npmjs.com/package/audrey-sewcolor): "string" | change color of the string with the errors
+* [audrey-errsign](https://www.npmjs.com/package/audrey-sewcolor):  "string" | change color symbol with errors you can use it as jasmine/mocha error checker. Write one symbol for each error, using 3 different colors.
+* [audrey-sewcolor-text](https://www.npmjs.com/package/adrey-sewcolor-text): ["three","srting","array"] | three strings that change if there are errors or not. If it's not a color defined uses the success, warning, error colors.
+* [audrey-tables](https://www.npmjs.com/package/audrey-tables): {array:[["array","of", "arrays"]["each", "array", "for"]["each", "line.", "Colors"]["only", "with", "chalk"]], align: ["letter", "for", "column"]}
 
 You'll find more info and examples, in the readme of every audrey-seed.
 
@@ -204,7 +204,7 @@ Take a look at adrey-two with audrey-tables and audrey-copyright
 
 ## scions
 
-The scions are seeds that require a little more power for running. For example, interactive CLI ask, response.. animations etc,. Audrey opens a forked_process_child and when the scion closes this process, recuperate the control. 
+The scions are seeds that require a little more power for running. For example, interactive CLI ask, response.. animations etc,. Audrey opens a forked_process_child and when the scion closes this process, audrey-two recuperates the control. 
 You only have to attach the scion as if it would be a seed but the first character of the taggy must be an "x".
 
 Look at audrey-jaskit module.
