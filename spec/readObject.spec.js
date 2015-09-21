@@ -17,7 +17,7 @@ var customObject={
 }
 
 //optional for object factories
-var audrey=audrey2(customObject);
+var audrey=audrey2("view", customObject);
    
 
 //BEFORE EACH TEST-- do
@@ -39,8 +39,8 @@ var expectErrors= [
 {code:"W05", message:"Does it have to be human?", aux:"Feed me!"},
 {code:"W05", message:"Does it have to be mine?", aux:"Feed me!"}];
 
-audrey.feed("W05", "Does it have to be human?", "Feed me!");
-audrey.feed("W05", "Does it have to be mine?", "Feed me!");
+audrey.err("W05", "Does it have to be human?", "Feed me!");
+audrey.err("W05", "Does it have to be mine?", "Feed me!");
 
     //EXPECTATION 1
     expect(audrey.getErrors()).toEqual(expectErrors);

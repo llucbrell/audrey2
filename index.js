@@ -188,9 +188,10 @@ function addControl(ucode, umessage, uaux){
 //-----------------------------------------------------
 //using an object
 function fertilize(objectName, blockPos, viewName){
+  var actualTer;
   if(!objectName.name || !objectName.value || !objectName.color || !blockPos) throw new Error("incorrect call to fertilize method");
-  if(viewName) var actualTer= views[viewName];
-  else var actualTer= terminal;
+  if(viewName) actualTer= views[viewName];
+  else actualTer= terminal;
     var name= objectName.name.slice(2);
     actualTer[name]=objectName.value;
     actualTer.colors[name]=objectName.color;
