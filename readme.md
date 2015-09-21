@@ -87,15 +87,33 @@ audrey.sing("FeedMe"); //--> print the view with the name
 //print--> objectFeedMe
 ```
 
-Audrey doesn't print nothing untill "adrey.encore()" or "sing()" method is called. And then everything it's printed with your custom choices. 
-Audrey has two methods to inject data. As if it was "console.log()" printing into the body. Or by assignation of the values in the custom-object (view). Look at customization for details. 
+Audrey doesn't print nothing untill "adrey.encore()" or "sing()" method is called. And then everything it's printed with the custom choices you added into the views. 
+
+## Data injection
+
+Audrey also has methods to inject directly data to the views.
+
+In the current view
 
 Example
 ```js
-//write on the same line
+//write directly into the body
 audrey.write(data);
 //write on different line samea as console.log
 audrey.writeLine(data);
+
+//write where you decide, on the header, body or footer
+audrey.fertilise("nameOfproperty","value","color", "blockStructure");
+audrey.fertilize(object, "blockStructure");
+//object{name:"??audreyInformation",
+         value: "this is a CLI view controller", 
+         color:"yellow" };
+```
+Into one particular view
+
+Example
+```js
+audrey.fertzView(object, "blockStructure", viewName);
 ```
 
 ## Debug mode... turn off!
@@ -126,47 +144,70 @@ Look at this terminal options defined before send it to Audrey.
 Example
 ```js
 var terminal-view={ 
-          header: [ ">Title" , "%symbol"],
-          brand: "this is Audrey2",
-          copyright: "MIT Seymour",
-          symbolProgress: "o",
+          header: [ ">>Title" , "%%symbol"],
+          Title: "this is Audrey2",
+          symbol: "o",
           colors:{ 
-           brand: "red", 
-           copyright: chalk.blue}         
+           Title: "red", 
+           symbol: chalk.blue}         
         };
 }
 ```
 
 ## View Components
 
-Audrey has some basic components to give you some custom options. Every component is more or less as if it was a tag. They have a reserved characther (taggy) at the beggining of each string. You have to include this taggies into the header, body and footer's array or audrey will not see them.
+The view components, are replaced in version 2 by seeds. This seeds are node modules ready to do some common view tasks. For example, write tables or write strings that change with the errors you passed to audrey.
+
+To use them you have to install the custom you want, and then bound it to audrey with a custom symbol.
+
+example seed installation
+```js
+$ npm --save install audrey-sewcolor
+```
+
+You must to bind the seeds before console printing command (encore/sing) of course, if the view is going to include this component.
+
+example binding
+```js
+audrey.seed("audrey-sewcolor-&0");
+//now every &0 audrey find, it will associate to this module-component
+```
+
+Every component is more or less as if it was an html tag. They have two characthers (taggy) you put at the beggining of the name. You have to include this taggies only into the header, body and footer's array or audrey that's where audrey will look and if they arn't audrey not see your components.
 
 Example
 ```js
 var view= 
-{header:[">brand",">brand2","?advise"]
+{header:["&0brand","&0brand2",">>advise"]
  body:["%errorsBar"],
  footer:["&mycopyright"]}
 ```
 
-## Components
+**caveat** the only tag reserved is ">>" is the two charcther taggy you can't associate with a seed. It's included in audrey by default for printing strings, as you can include it into your views. 
 
-1. &gt;mystrings: "string" | any string
-2. &copyright: "string" | get two or more words. First, license's name and then the author, add the copyright symbol 
-4. ?info: "string" | change color of the string with the errors
-5. %symbolProgress:  "string" | change color symbol with errors you can use it as jasmine/mocha error checker
-6. ~change: ["three","srting","array"] | three strings that change if there are errors or not. If it's not a color defined uses the success, warning, error colors.
-7. #table: {array:[["array","of", "arrays"]["each", "array", "for"]["each", "line.", "Colors"]["only", "with", "chalk"]], align: ["letter", "for", "column"]}
+## Seeds
 
-Alignment types:
+Here you have a short list of components you can find in npm. Of course you can write your own components, look at this link. 
 
-* `'l'` - left
-* `'r'` - right
-* `'c'` - center
-* `'.'` - decimal
+If you want to search for audrey-seeds just look for in npm
 
+1. audrey-copyright: "string" | get two or more words. First, license's name and then the author, add the copyright symbol 
+2. adrey-sewcolor: "string" | change color of the string with the errors
+3. audrey-errsign:  "string" | change color symbol with errors you can use it as jasmine/mocha error checker. Write one symbol for each error, using 3 different colors.
+4. audrey-sewcolor-text: ["three","srting","array"] | three strings that change if there are errors or not. If it's not a color defined uses the success, warning, error colors.
+7. audrey-tables: {array:[["array","of", "arrays"]["each", "array", "for"]["each", "line.", "Colors"]["only", "with", "chalk"]], align: ["letter", "for", "column"]}
+
+You'll find more info and examples, in the readme of every audrey-seed.
+
+Take a look at adrey-two with audrey-tables
 ![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura3.png)
 
+## scions
+
+The scions are seeds that require a little more power for running. For example, interactive CLI ask, response.. animations etc,. Audrey opens a forked_process_child and when the scion closes this process, recuperate the control. 
+You only have to attach the scion as if it would be a seed but the first character of the taggy must be an "x".
+
+Look at audrey-jaskit module.
 
 ## Colors
 
@@ -175,12 +216,13 @@ If you want to add colors to your view, you only have to add a property colors w
 Example
 ```js
   var view= 
- {header:[">brand",">brand2","?advise"]
-  body:["%errorsBar"],
-  footer:["&mycopyright"],
+ {header:[">>brand","?&brand2","%%advise"]
+  body:["%%errorsBar"],
+  footer:["?&mycopyright"],
   colors:{
   brand: "red",
-  advise: "green"
+  advise: "green",
+  ?&mycopyright:"blue"
   }}
 ```
 
@@ -201,33 +243,17 @@ Example
 ## Dependencies
 
 Audrey-two make use of...
-
-
-* [text-table](https://www.npmjs.com/package/text-table) module for a correct table display.
   
 * [chalk](https://www.npmjs.com/package/chalk) module for the color display.
-
-* [string-length](https://www.npmjs.com/package/string-length) module for the color display.
-
 
 People and plants really appreciate your great code!
 
 ## Contribute
 
-Help Audrey to grow with human blood..
-Now, choose one of this topics and don't become a dentist!
+Help Audrey to grow with human blood!!
 
-- horrible transformations from string to big fonts
-- bloody progress bar for lots of data
-- hypnotic frame animation support
-- strange image display
-- terriffic code examples and possible app structures
+Write your own seed or scion, share it in npme and.. you will never be a dentist!
 
-
-<!-- Feed audrey with data from temp files
--->
-<!---display more than ascii symbols
--->
 
 ## License
 

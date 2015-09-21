@@ -138,6 +138,7 @@ return{  //THE USER LIBRARY METHODS
     //run the debuger change or add to terminal object
        fertilise: function(objectName, value, color, blockPos){fertilise(objectName, value, color, blockPos);},
        fertilize: function(objectName, blockPos){ fertilize(objectName, blockPos);},
+       fertzView: function(objectName, blockPos, viewName){fertilize(objectName, blockPos, viewName);},   
            debug: function(boolean){bool= boolean;},
         fumiGate: function(nuObject){ terminal= nuObject; init();}, //put new one ready to print //you'll lost the view if you change after
          replant: function(name){terminal=views[name]; init();},
@@ -186,13 +187,15 @@ function addControl(ucode, umessage, uaux){
 //SETS NEW OBJECTS INTO THE VIEW
 //-----------------------------------------------------
 //using an object
-function fertilize(objectName, blockPos){
+function fertilize(objectName, blockPos, viewName){
   if(!objectName.name || !objectName.value || !objectName.color || !blockPos) throw new Error("incorrect call to fertilize method");
+  if(viewName) var actualTer= views[viewName];
+  else var actualTer= terminal;
     var name= objectName.name.slice(2);
-    terminal[name]=objectName.value;
-    terminal.colors[name]=objectName.color;
+    actualTer[name]=objectName.value;
+    actualTer.colors[name]=objectName.color;
     setOnBlock(objectName.name, blockPos);
-    checkUserColors(terminal.colors);
+    checkUserColors(actualTer.colors);
   init();
 }
 //by name, value,color block
