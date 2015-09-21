@@ -1,23 +1,15 @@
-
 module.exports= function(object){
 "use strict";
+//BASIC INITIAL ACTIONS
+
 //stores all the options for the user
 var terminal=object;
 var taggies=[]; //stores the taggy codes
 
 //modules load
 var chalk= require('chalk');
-var Q= require('q');
 terminal.colors.default= chalk.white.bold;
 terminal.default="";
-
-//for error in the use of this library
-var audreyErrors={
-  color:{code:"E01", message:"There is no color defined in the view for "},
-defined:{code:"E02", message:"Not defined "},
-noComponent:{code:"E03", message:"There isn't a tag deffined in the view for "},
-noColor:{code:"E04", message:"There is no colors object defined"},
-};
 
 //set the colors of the terminal
 checkUserColors(terminal.colors);
@@ -27,25 +19,23 @@ var ers;
 var warn;
 var suc;
 var mess="";
-var ret;
-
+//to control the view properties and colors
 var properties= Object.getOwnPropertyNames(terminal);
 var colors=Object.getOwnPropertyNames(terminal.colors);
 
 //variables to control interfaces
 var interf;
 var interfPath;
-
+//to control the "re-loop" -rerun-function
 var indexb;
 var scionName;
 var scionBlock;
-var actualBlock;
-
+//to controll the child process
 var childProcess=[];
 var count=0;
 var recallback;
 
-return{  
+return{  //THE USER LIBRARY METHODS
     //control error and mdules arrays
             seed: function(arrayPaths){ putSeeds(arrayPaths);},
             feed: function(index, message, aux){ addControl(index, message, aux);},
@@ -61,24 +51,20 @@ return{
     //return errors and other staff to the user        
        getErrors: function(){return terminal.errors;},
       getTaggies: function(){return taggies;},
-         getData: function(){return updatedData;}
-          
+         getData: function(){return updatedData;}        
 };
 
-//SETS THE NEW AUDREY-TWO-MODULES
+//SETS THE NEW AUDREY-TWO-MODULES-SEEDS
 function putSeeds(arrayPaths){
   arrayPaths.forEach(function(element){
     var tagy={code:"", path:""};
-    tagy.code= element.substr(element.length-2, element.length-1);
-    tagy.path= element.substr(0, element.length-3);
+    tagy.code= element.substr(element.length-2, element.length-1);//save the user custom tag
+    tagy.path= element.substr(0, element.length-3);//save the path to the seed
     taggies.push(tagy);
   });
-
 }
 
-
 //FUNCTIONS FOR THE CLI RESPONSE..
-
  function checkUserColors(colorUser){
   if(terminal.colors){
     for(var name in colorUser){
@@ -89,13 +75,10 @@ function putSeeds(arrayPaths){
     throw new Error("There is no colors object defined");
   }
 }
-
-
+//pass the basic colors --> chalk-colors
 function setUserColor(option){
   var col;
-
-   switch (option){
-          
+   switch (option){//good for passing only chalk.colors to seeds 
                   case 'red':
                     col=chalk.red;
                     break;
@@ -135,54 +118,40 @@ function checkColors(name){
     terminal.colors[name]=terminal.colors.default;
     } 
 }
-
-//print the ascii image brand
-function printBrand(simName){
-var name= simName.slice(2); //delete simbol of the name 
-  checkProperties(name); 
-  checkColors(name);
-      console.log(); 
-      process.stdout.write(terminal.colors[name](terminal[name]));
-}
-
-function addControl(ucode, umessage, uaux){//add error to audrey
+//add error to audrey
+function addControl(ucode, umessage, uaux){
   if(uaux && !terminal.colors.aux) terminal.colors.aux=terminal.colors.info;
   if(!terminal.errors) terminal.errors=[];
   var errObject={code: ucode, message: umessage, aux: uaux};
   terminal.errors.push(errObject);
 }
-
-function talk(){
 /* prints on the console, check first for errors and 
  * prints the structure, it's the core of this program
  * follow it and you follow the code flow 
- */ 
+ */
+function talk(){ 
    warn=0;
    ers=0;
    suc=0;
   //count errors and breaks if something is wrong
-  terminal.errors.forEach(function(element){
+  terminal.errors.forEach(function(element){ //iterates over user-erros injected
     if(element.code[0]=== "E" ||element.code[0]=== "e"){
           ers++;
-         // break;
     }
     else if(element.code[0]=== "W"|| element.code[0]=== "w"){
           warn++;       
    }
    else suc++;
- });
+  });
   terminal.ers= ers;
   terminal.warn=warn;
   terminal.suc=suc;
-
 //check the header and print it, then the body
-steps(function(){
+//steps(function(){
 checkCallback("header", function(){
-  console.log("heelo");
-
   checkCallback("body", function(){
     printMess();
-    //displays the error messages
+    //displays the error debug audrey-messages
     if(bool!==false){
      terminal.errors.forEach(function(element){
         if (element.code[0]=== "S" || element.code[0]=== "s"){
@@ -196,137 +165,98 @@ checkCallback("header", function(){
         }
        });
       }
-
      // Check the footer and print it
-     checkCallback("footer", function(){console.log(" ");});
-     
+     checkCallback("footer", function(){console.log("");});     
     });
   }); 
-});
-
+//});
 }
-
-function check(name){
- var deferred= Q.defer();
- if(terminal[name]){
-  reRunBlock(terminal[name],0);
-
- }
-}
-
+/*
 function steps(callback){
   callback();
-}
-
+}*/
+//is the callback function, controls the view display is called several times
 function checkCallback(name, callback){
  if(terminal[name]){
-  reRunBlock(terminal[name],0, function() {
-    console.log("callback"+name);
-    callback()
+    reRunBlock(terminal[name],0, function() {
+    //console.log("callback"+name);
+    callback();
   });
-
  }
 }
-
-
-
+//run a node fork process child to execute complexes IO (scions)
 function runInterf(block){
   var audreyInterf= require(interfPath);
-  var scion= audreyInterf();
+  var scion= audreyInterf();  
+  scionBlock.splice(0, indexb);
 
-  
-scionBlock.splice(0, indexb);
 if (scionBlock[0]===undefined) scionBlock.push(">>default");
-console.log(scionBlock);
-indexb=undefined;
-
-//var args = [scionName, terminal];
-childProcess[count] = require('child_process').fork(interfPath, scion.grow(scionName, terminal));
-//console.log(interfPath);
-
-process.on('exit', function (block, indexb) {
-    childProcess[count].kill();
-    processReinit();
-});
-
+  indexb=undefined;
+  childProcess[count] = 
+    require('child_process')
+      .fork(interfPath, scion.grow(scionName, terminal));
+      //add a listener to the child to know when finishes the action
+    process.on('exit', function (block, indexb) {
+        childProcess[count].kill();
+        processReinit();
+    });
 }
-
+//works as caller from inside child-process-listener //no args can be passed
 function processReinit(){
-  
-//console.log("scion");
-//console.log("reinit"+scionBlock);
-//console.log(scionBlock);
     reRunBlock(scionBlock, 0);
 }
-
+//second version of print-block--> used as init and re-loop builder
 function reRunBlock(block, index, callback){
-  /*debugger
-  console.log("\nBLOCK"+block);
-  console.log("INDEX"+index);
-  console.log("myIND"+indexb); */
   growing:
-  for(var i=index; i<block.length; i++){
-    //console.log("i"+i);
-    var code=block[i].substr(0,2);
-    if (code=== ">>") {
-      printBrand(block[i]);
-      if(block[i].substr(2)==="default"){
-        recallback();
-      }}
-    for(var ii=0; ii<taggies.length;ii++){
-        
-        if(taggies[ii].code === code){
-         /*debugger
-          console.log("COD"+code+" "+"TAG"+taggies[ii].code);
-          console.log("NAME"+block[i]);
-          console.log("myIND"+indexb);*/
-          if (code==="xx") {//user lib needs all control-->callback-mode
-          interf=true;
-          interfPath="../"+taggies[ii].path+"/index.js";
-          indexb=i+1;
-          scionBlock=block;
-          scionName= block[i];
-          break growing;
-        }
-           //console.log("PATH"+taggies[i].path);
-           var audreySeed= require("../"+taggies[ii].path+"/index.js");
-           var seed= audreySeed();
-           var callbackname=block[i];
-           seed.grow(callbackname, terminal);
-        
-           if(i===block.length-1){
-            if( callback) callback();
-            else recallback();
-           }
-        }
-
-    }
-  }
-  if(interf){
+  for(var i=index; i<block.length; i++){ //iterate over the block [body, header, etck] |
+    //console.log("i"+i);                                                              |
+    var code=block[i].substr(0,2);//                                                   |
+    if (code=== ">>") {//The only tagy by deffault                                     |
+      printBrand(block[i]);//                                                          |
+      if(block[i].substr(2)==="default"){// fixes the bug of last element              |
+        recallback();//                                                                |
+      }//                                                                              |
+    }//                                                                                |
+    for(var ii=0; ii<taggies.length;ii++){//                                           |
+        //match user taggies and control if there are some seeds  so executes... |     |
+        if(taggies[ii].code === code){//                                         |     |
+          if (code==="xx") {//user lib needs all control-->callback-mode         |     |
+            interf=true;//                                                       |     |
+            interfPath="../"+taggies[ii].path+"/index.js";//                     |     |
+            indexb=i+1;//                                                        |     |
+            scionBlock=block;//                                                  |     |
+            scionName= block[i];//                                               |     |
+            break growing;//  BREAK THE TWO LOOPS                                |     |
+          }//if there are no seeds then, executes next                    |      |     |
+           var audreySeed= require("../"+taggies[ii].path+"/index.js");// |      |     |
+           var seed= audreySeed();//                                      |      |     |
+           var callbackname=block[i];//                                   |      |     |
+           seed.grow(callbackname, terminal);//                           V      |     |
+           //if it's the last elemente of the block, so executes |               |     |
+          if(i===block.length-1){ //                             |               |     |
+            if(callback) callback();//                           |               |     |
+            else recallback();//if it's other                    v               |     |
+          }//                                                                    |     |
+        }//                                                                      |     |
+    }//                                                                          v     |
+  }//                                                                                  v
+  if(interf){//if the element was a seed then executes interface
     interf=undefined;
     recallback= callback;
-    /*debugger
-    console.log("RUNINTERF");
-    console.log("\nBLOCK"+block);
-    console.log("INDEX"+index);
-    console.log("myIND"+indexb);*/
     runInterf(block);
   }
- 
 }
  
-
-
 // direct injection of data after body
 function printMess(){
   process.stdout.write(mess+"\n\n");
 }
+/*
 function printCBrand(name, tagColor){
   console.log(); 
-      process.stdout.write(tagColor(name));
-}
-
-
+  process.stdout.write(tagColor(name));
+}*/
+//control if the view has the correct properties if not throw error
 function checkProperties(name){
   var bul=false; // boolean to control if its defined the property
 
@@ -340,18 +270,21 @@ function checkProperties(name){
     }  
 }
 
+//FUNCTIONS FOR PRINTING ON SCREEN
+
+//print error message for debug
 function aError(errorObject){
   if(errorObject.aux){
-  console.log(terminal.colors.error(terminal.symbolProgress+" Error: "+errorObject.message)+ " " +terminal.colors.aux(errorObject.aux));
-  console.log();  
+    console.log(terminal.colors.error(terminal.symbolProgress+" Error: "+errorObject.message)+ " " +terminal.colors.aux(errorObject.aux));
+    console.log();  
   }
   else{
-  console.log(terminal.colors.error(terminal.symbolProgress+" Error: "+errorObject.message));
-  console.log();
+    console.log(terminal.colors.error(terminal.symbolProgress+" Error: "+errorObject.message));
+    console.log();
   }
     
 }
-
+//print success error for debug
 function aSuccess(errorObject){
   if(errorObject.aux){
    console.log(terminal.colors.success(terminal.symbolProgress+" Success: "+errorObject.message) +" " +terminal.colors.aux(errorObject.aux));
@@ -362,7 +295,7 @@ function aSuccess(errorObject){
    console.log();
   }
 }
-
+//print warning error for debug
 function aWarning(errorObject){
   if(errorObject.aux){
     console.log(terminal.colors.warning(terminal.symbolProgress+" Warning: "+errorObject.message)+" " +terminal.colors.aux(errorObject.aux));
@@ -373,5 +306,14 @@ function aWarning(errorObject){
     console.log();
   }
 }
+//print the ascii strings--> used by default
+function printBrand(simName){
+  var name= simName.slice(2); //delete simbol of the name 
+    checkProperties(name); 
+    checkColors(name);
+        console.log(); 
+        process.stdout.write(terminal.colors[name](terminal[name]));
+}
 
+//END
 };
