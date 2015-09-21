@@ -220,7 +220,7 @@ function reRunBlock(block, index, callback){
     for(var ii=0; ii<taggies.length;ii++){//                                           |
         //match user taggies and control if there are some seeds  so executes... |     |
         if(taggies[ii].code === code){//                                         |     |
-          if (code==="xx") {//user lib needs all control-->callback-mode         |     |
+          if (code[0]==="x") {//user lib needs all control-->callback-mode         |     |
             interf=true;//                                                       |     |
             interfPath="../"+taggies[ii].path+"/index.js";//                     |     |
             indexb=i+1;//                                                        |     |
