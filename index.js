@@ -120,27 +120,33 @@ var scionBlock;
 var childProcess=[];
 var count=0;
 var recallback;
+var views={};
 
 init();
 
 return{  //THE USER LIBRARY METHODS
-    //control error and mdules arrays
+    //control error, views and mdule arrays
             seed: function(arrayPaths){ putSeeds(arrayPaths);},
-            feed: function(index, message, aux){ addControl(index, message, aux);},
-    //simple error messages
+            feed: function(name, view){ views[name]=view; },
+             err: function(index, message, aux){ addControl(index, message, aux);},
+             dry: function(name){ delete views[name];},
+    //simple error messages and printing functions
     printSuccess: function(message){aSuccess(message);},
     printWarning: function(message){aWarning(message);},
       printError: function(message){aError(message);},
-    //run the debuger and print into terminal
+           write: function(data){mess+=data;},
+       writeLine: function(data){mess+=data+"\n";},
+    //run the debuger change or add to terminal object
        fertilise: function(objectName, value, color, blockPos){fertilise(objectName, value, color, blockPos);},
        fertilize: function(objectName, blockPos){ fertilize(objectName, blockPos);},
            debug: function(boolean){bool= boolean;},
-       updateAll: function(nuObject){ terminal= nuObject; init();},
-            sing: function(){run();}, //print over screen
-           write: function(data){mess+=data;},
-       writeLine: function(data){mess+=data+"\n";},
+        fumiGate: function(nuObject){ terminal= nuObject; init();}, //put new one ready to print //you'll lost the view if you change after
+         replant: function(name){terminal=views[name]; init();},
+            sing: function(name){terminal=views[name]; init(); run();},    
+          encore: function(){run();}, //print the last view on the console
     //return errors and other staff to the user        
        getErrors: function(){return terminal.errors;},
+        getViews: function(){return views;},
       getTaggies: function(){return taggies;},
          getData: function(){return updatedData;}        
 };

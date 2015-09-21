@@ -23,7 +23,7 @@ Audrey it's build as a nodeJS module, precisely as an clousure object factory. I
 
 Feed Audrey with object errors and data extracted from your command actions. This carnivorous plant get charge of the output console display and give to your users a little of sugar rather than only an ugly output option. 
 
-You can combine one or more Audreys with your favorite nodeJS-CLI. Then you get more control of what you display and the way you do. Of course, using audrey, you don't need to think so much about code-flow.
+You can combine lots of views by passing them to audrey. So you get more control of what you display and the way you do. Of course, using audrey, you don't need to think so much about code-flow.
 
 
 If you feed Audrey with a header, body, footer & data for displaying... 
@@ -51,7 +51,6 @@ Example
 ```js
 var audrey2= require('audrey-two');
 var audrey= audrey2(myTerminalDisplay);
-
 
 //run your command and pass error objects to audrey
 
