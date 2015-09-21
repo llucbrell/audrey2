@@ -88,7 +88,7 @@ THE SOFTWARE.
                                                                                               
 
 
-module.exports= function(object){
+module.exports= function(objName, object){
 "use strict";
 //BASIC INITIAL ACTIONS
 
@@ -120,20 +120,19 @@ var scionBlock;
 var childProcess=[];
 var count=0;
 var recallback;
+
 var views={};
+views[objName]=object;
 
 init();
 
 return{  //THE USER LIBRARY METHODS
     //control error, views and mdule arrays
             seed: function(arrayPaths){ putSeeds(arrayPaths);},
-            feed: function(name, view){ views[name]=view; },
+            feed: function(name, view){ views[name]=view; init();},
              err: function(index, message, aux){ addControl(index, message, aux);},
              dry: function(name){ delete views[name];},
     //simple error messages and printing functions
-    printSuccess: function(message){aSuccess(message);},
-    printWarning: function(message){aWarning(message);},
-      printError: function(message){aError(message);},
            write: function(data){mess+=data;},
        writeLine: function(data){mess+=data+"\n";},
     //run the debuger change or add to terminal object
@@ -464,6 +463,7 @@ function printBrand(simName){
         console.log(); 
         process.stdout.write(terminal.colors[name](terminal[name]));
 }
+
 
 };
 //END

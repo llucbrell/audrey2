@@ -102,7 +102,10 @@ var myTerminal={header: [ ">>brand","??info","xxask"],
 				};
 
 var audrey2= require('./index.js');
-var audrey= audrey2(myTerminal);
+var audrey= audrey2("hello", myTerminal);
+
+
+//audrey.feed("ter", myTerminal);
 myTerminal.nu="esto es UPDATED";
 myTerminal.colors.nu='red';
 myTerminal.header.push(">>nu");
@@ -116,29 +119,29 @@ audrey.seed(["audrey-tables-##",
   
   ,"audrey-sewcolor-??", 
   "audrey-jaskit-xx"]);
-audrey.updateAll(myTerminal);
+audrey.replant("hello",myTerminal);
 audrey.fertilise("??nuevico","infooOooo", "green", "footer");
 var obj={name:">>otro nuevo", value:"aaaagh" ,color:'blue'};
 audrey.fertilize(obj, "body");
-audrey.feed("W05", "Does it have to be human?", "Feed me!");
-audrey.feed("W05", "Does it have to be mine?", "Feed me!");
-audrey.feed("S002", "The Audrey Two is not a healthy girl.", "Strictly between us - neither is the Audrey One");
-audrey.feed("S002", "Does this look 'inanimate' to you, punk? If I can move and I can talk, who's to say I can't do anything I want?");
-//audrey.feed("E02", "It's your professionalism that I respect");
-//audrey.feed("E02", " I find a little giggle-gas before I begin increases my pleasure enormously. ");
-audrey.feed("W05", "this is an warning");
-//audrey.feed("E02", "You'll be a deeeentist...");
-audrey.feed("W05", "this is an warning");
-audrey.feed("S05","this is an exit-o", "odifa");
-audrey.feed("S05", "this is an exit-o");
-//audrey.feed("E05", "this is an error");
-//audrey.feed("E05","this is an error");
-audrey.feed("W05", "this is an warning");
-audrey.feed("S05","this is an exit-o", "odifa");
-audrey.feed("S05", "this is an exit-o");
-//audrey.feed("E05", "this is an error");
+audrey.err("W05", "Does it have to be human?", "Feed me!");
+audrey.err("W05", "Does it have to be mine?", "Feed me!");
+audrey.err("S002", "The Audrey Two is not a healthy girl.", "Strictly between us - neither is the Audrey One");
+audrey.err("S002", "Does this look 'inanimate' to you, punk? If I can move and I can talk, who's to say I can't do anything I want?");
+//audrey.err("E02", "It's your professionalism that I respect");
+//audrey.err("E02", " I find a little giggle-gas before I begin increases my pleasure enormously. ");
+audrey.err("W05", "this is an warning");
+//audrey.err("E02", "You'll be a deeeentist...");
+audrey.err("W05", "this is an warning");
+audrey.err("S05","this is an exit-o", "odifa");
+audrey.err("S05", "this is an exit-o");
+//audrey.err("E05", "this is an error");
+//audrey.err("E05","this is an error");
+audrey.err("W05", "this is an warning");
+audrey.err("S05","this is an exit-o", "odifa");
+audrey.err("S05", "this is an exit-o");
+//audrey.err("E05", "this is an error");
 //audrey.write("I'm starving ");
 //audrey.write("feeeeed meeee.... Seymour!!!");
 
 audrey.debug(false);
-audrey.sing();
+audrey.encore();

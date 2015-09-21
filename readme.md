@@ -19,6 +19,12 @@ Commander and others update the model. Audrey give you the power of update view/
 
 Audrey it's build as a nodeJS module, precisely as an clousure object factory. In that way, Audrey doesn't inffer in the code of your app.
 
+
+Version 1 is now deprecated.
+
+Version two of Audrey introduce the concepts of seed and scions. In that way, now audrey-two is **more flexible and customizable**.
+
+
 ## What it does? 
 
 Feed Audrey with object errors and data extracted from your command actions. This carnivorous plant get charge of the output console display and give to your users a little of sugar rather than only an ugly output option. 
@@ -28,15 +34,6 @@ You can combine lots of views by passing them to audrey. So you get more control
 
 If you feed Audrey with a header, body, footer & data for displaying... 
 It'll grow big and strong!
-
-Version two of Audrey introduce the concepts of seed and scions. This way, make it more flexible and customizable.
-
-Sorry but now, version 1 is now deprecated. You can continue with older Audrey using the last version of v1.0.
-
-Example
-```
-$ npm install --save audrey-two @1.0.8
-```
 
 ## Install v2.0
 
@@ -54,23 +51,43 @@ var audrey= audrey2(myTerminalDisplay);
 
 //run your command and pass error objects to audrey
 
-audrey.feed(code, message);
+audrey.feed("viewName", objectView);
 //if it's and error code start with "E"
-audrey.feed("E02", "You'll be a deeeentist...");
+audrey.err("E02", "You'll be a deeeentist...");
 //Warnings Start in "W"
-audrey.feed("W01", "A plant from out Space!");
+audrey.err("W01", "A plant from out Space!");
 //you can show success on the console too
-audrey.feed("S001", "I'm Alive!");
+audrey.err("S001", "I'm Alive!");
 //or pass some auxiliar to print in the same line
-adrey.feed("S002", "This is a new kind of plant!", cli.name);
-audrey.talk();
+adrey.err("S002", "This is a new kind of plant!", cli.name);
+audrey.encore();
 ```
 
 ![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura2.png)
 
 ## Printing
 
-Audrey doesn't print nothing untill "adrey.talk()" call. And then everything it's printed with your custom choices. 
+With Audrey you can print in different ways.
+You can print all the view, as if you click on a link. The browser load the web-page at once. 
+
+Example
+```js
+var audrey2= require('audrey-two');
+var audrey= audrey2(myTerminalDisplay);
+
+//run your command and pass error objects to audrey
+
+audrey.feed("FeedMe", objectViewFeed);
+audrey.feed("Seymour", objectVSeymour);
+
+audrey.encore(); //--> print the last replanted view
+//print--> the objectSeymour
+
+audrey.sing("FeedMe"); //--> print the view with the name
+//print--> objectFeedMe
+```
+
+Audrey doesn't print nothing untill "adrey.encore()" or "sing()" method is called. And then everything it's printed with your custom choices. 
 Audrey has two methods to inject data. As if it was "console.log()" printing into the body. Or by assignation of the values in the custom-object (view). Look at customization for details. 
 
 Example
