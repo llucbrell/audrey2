@@ -304,7 +304,7 @@ function run(){
   terminal.suc=suc;
 //check the header and print it, then the body
 //steps(function(){  
-if(terminal.header){
+if(terminal.header && terminal.header[0]){
 checkCallback("header", function(){
   if(terminal.body && terminal.body[0]){
   checkCallback("body", function(){
@@ -355,7 +355,7 @@ checkCallback("header", function(){
     });
   }
   else{
-    if (terminal.footer) checkCallback("footer", function(){console.log("");});
+    if (terminal.footer && terminal.footer[0]) checkCallback("footer", function(){console.log("");});
   }
 
   }
@@ -406,7 +406,7 @@ function reRunBlock(block, index, callback){
       if(block[i].substr(2)==="default"){
         if(callback) callback();// // fixes the bug of last element  |    |      |
         else recallback();//                                                    v    |      |
-      }//                                                                       |      |
+      }//  *******************there is the bug... TODO FIX-IT                                                                     |      |
       if(i===block.length-1){ //                                 |              |      |
             if(callback) callback();//                           |              |      |
             else recallback();//if it's other                    v              |      |
