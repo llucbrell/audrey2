@@ -98,19 +98,15 @@ var taggies=[]; //stores the taggy codes
 
 //modules load
 var chalk= require('chalk');
-terminal.colors.default= chalk.white.bold;
-terminal.default="";
 
-//set the colors of the terminal
-checkUserColors(terminal.colors);
-
-var bool=true;
+var bool;
 var ers;
 var warn;
 var suc;
 var mess="";
 //to control the view properties and colors
-var properties= Object.getOwnPropertyNames(terminal);
+
+var properties=Object.getOwnPropertyNames(terminal);
 var colors=Object.getOwnPropertyNames(terminal.colors);
 
 //variables to control interfaces
@@ -125,6 +121,8 @@ var childProcess=[];
 var count=0;
 var recallback;
 
+init();
+
 return{  //THE USER LIBRARY METHODS
     //control error and mdules arrays
             seed: function(arrayPaths){ putSeeds(arrayPaths);},
@@ -134,8 +132,10 @@ return{  //THE USER LIBRARY METHODS
     printWarning: function(message){aWarning(message);},
       printError: function(message){aError(message);},
     //run the debuger and print into terminal
+       fertilize: function(objectName, value, blockPos){ newObject(objectName, value, blockPos);},
            debug: function(boolean){bool= boolean;},
-            talk: function(){talk();}, //print over screen
+          update: function(nuObject){ terminal= nuObject; init();},
+            sing: function(){run();}, //print over screen
            write: function(data){mess+=data;},
        writeLine: function(data){mess+=data+"\n";},
     //return errors and other staff to the user        
@@ -143,6 +143,24 @@ return{  //THE USER LIBRARY METHODS
       getTaggies: function(){return taggies;},
          getData: function(){return updatedData;}        
 };
+
+function init(){
+
+
+//modules load
+terminal.colors.default= chalk.white.bold;
+terminal.default="";
+
+//set the colors of the terminal
+checkUserColors(terminal.colors);
+
+bool=true;
+//to control the view properties and colors
+
+properties= Object.getOwnPropertyNames(terminal);
+colors=Object.getOwnPropertyNames(terminal.colors);
+
+}
 
 //SETS THE NEW AUDREY-TWO-MODULES-SEEDS
 function putSeeds(arrayPaths){
@@ -154,7 +172,29 @@ function putSeeds(arrayPaths){
   });
 }
 
+//SET ERRORS
+//add error to audrey
+function addControl(ucode, umessage, uaux){
+  if(uaux && !terminal.colors.aux) terminal.colors.aux=terminal.colors.info;
+  if(!terminal.errors) terminal.errors=[];
+  var errObject={code: ucode, message: umessage, aux: uaux};
+  terminal.errors.push(errObject);
+}
+
+//SETS NEW OBJECTS INTO THE VIEW
+function newObject(objectName, blockPos){
+ 
+    var name= objectName.name.slice(2);
+    terminal[name]=objectName.value;
+    terminal.colors[name]=objectName.color;
+    setOnBlock(objectName.name, blockPos);
+    checkUserColors(terminal.colors);
+  console.log(terminal);
+  init();
+}
+
 //FUNCTIONS FOR THE CLI RESPONSE..
+//check if there is defined object colors if not, throw error
  function checkUserColors(colorUser){
   if(terminal.colors){
     for(var name in colorUser){
@@ -165,6 +205,21 @@ function putSeeds(arrayPaths){
     throw new Error("There is no colors object defined");
   }
 }
+//adds new object to list of print
+function setOnBlock(objectName, blockPos){
+  switch(blockPos){
+    case 'header':
+      terminal.header.push(objectName);
+      break;
+    case 'body':
+      terminal.header.push(objectName);
+      break;
+    case 'footer':
+      terminal.header.push(objectName);
+      break; 
+  }
+}
+
 //pass the basic colors --> chalk-colors
 function setUserColor(option){
   var col;
@@ -191,7 +246,7 @@ function setUserColor(option){
                     col=option;
                     break;
                 }
-                return col;
+    return col;
 }
 //checks the colors in printBrand
 function checkColors(name){
@@ -208,18 +263,12 @@ function checkColors(name){
     terminal.colors[name]=terminal.colors.default;
     } 
 }
-//add error to audrey
-function addControl(ucode, umessage, uaux){
-  if(uaux && !terminal.colors.aux) terminal.colors.aux=terminal.colors.info;
-  if(!terminal.errors) terminal.errors=[];
-  var errObject={code: ucode, message: umessage, aux: uaux};
-  terminal.errors.push(errObject);
-}
-/* prints on the console, check first for errors and 
- * prints the structure, it's the core of this program
+/*
+ * prints on the console, check first for errors and 
+ * prints the structure, it's the flow of this softwr
  * follow it and you follow the code flow 
  */
-function talk(){ 
+function run(){ 
    warn=0;
    ers=0;
    suc=0;
@@ -299,13 +348,18 @@ function processReinit(){
 function reRunBlock(block, index, callback){
   growing:
   for(var i=index; i<block.length; i++){ //iterate over the block [body, header, etck] |
-    //console.log("i"+i);                                                              |
+    //console.log("i"+i);   
+    console.log(block[i]);//                                                           |
     var code=block[i].substr(0,2);//                                                   |
     if (code=== ">>") {//The only tagy by deffault                                     |
       printBrand(block[i]);//                                                          |
       if(block[i].substr(2)==="default"){// fixes the bug of last element              |
         recallback();//                                                                |
       }//                                                                              |
+      if(i===block.length-1){ //                             |               |     |
+            if(callback) callback();//                           |               |     |
+            else recallback();//if it's other                    v               |     |
+          }//     
     }//                                                                                |
     for(var ii=0; ii<taggies.length;ii++){//                                           |
         //match user taggies and control if there are some seeds  so executes... |     |

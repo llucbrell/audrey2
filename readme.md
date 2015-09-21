@@ -13,9 +13,9 @@ Click this [link](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93contr
 
 ## Specifications
 
-This code try to complement other CLI tools like commander, unicorn, etc., to implement the MVC on your terminal apps.
-If you bind Audrey with them you can convert this tools in a complete and functional controller.
-Commander and others update the model, and call Audrey to give you the power of update view/s. 
+This code try to complement other CLI tools like commander, etc., to implement the MVC over terminal apps.
+If you bind Audrey with this tools you can get a complete functional controller.
+Commander and others update the model. Audrey give you the power of update view/s in several ways.. 
 
 Audrey it's build as a nodeJS module, precisely as an clousure object factory. In that way, Audrey doesn't inffer in the code of your app.
 
@@ -23,14 +23,22 @@ Audrey it's build as a nodeJS module, precisely as an clousure object factory. I
 
 Feed Audrey with object errors and data extracted from your command actions. This carnivorous plant get charge of the output console display and give to your users a little of sugar rather than only an ugly output option. 
 
-You can combine one or more Audreys with your favorite nodeJS-CLI. Then you get more control of what you display and the way you do. Of course, after install audrey, you don't need to think so much about code-flow.
+You can combine one or more Audreys with your favorite nodeJS-CLI. Then you get more control of what you display and the way you do. Of course, using audrey, you don't need to think so much about code-flow.
 
 
 If you feed Audrey with a header, body, footer & data for displaying... 
 It'll grow big and strong!
 
+Version two of Audrey introduce the concepts of seed and scions. This way, make it more flexible and customizable.
 
-## Install
+Sorry but now, version 1 is now deprecated. You can continue with older Audrey using the last version of v1.0.
+
+Example
+```
+$ npm install --save audrey-two @1.0.8
+```
+
+## Install v2.0
 
 Example
 ```
@@ -43,6 +51,7 @@ Example
 ```js
 var audrey2= require('audrey-two');
 var audrey= audrey2(myTerminalDisplay);
+
 
 //run your command and pass error objects to audrey
 
