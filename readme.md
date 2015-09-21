@@ -199,7 +199,7 @@ If you want to search for audrey-seeds just look for in npm
 
 You'll find more info and examples, in the readme of every audrey-seed.
 
-Take a look at adrey-two with audrey-tables
+Take a look at adrey-two with audrey-tables and audrey-copyright
 ![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura3.png)
 
 ## scions
