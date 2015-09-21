@@ -132,9 +132,10 @@ return{  //THE USER LIBRARY METHODS
     printWarning: function(message){aWarning(message);},
       printError: function(message){aError(message);},
     //run the debuger and print into terminal
-       fertilize: function(objectName, value, blockPos){ newObject(objectName, value, blockPos);},
+       fertilise: function(objectName, value, color, blockPos){fertilise(objectName, value, color, blockPos);},
+       fertilize: function(objectName, blockPos){ fertilize(objectName, blockPos);},
            debug: function(boolean){bool= boolean;},
-          update: function(nuObject){ terminal= nuObject; init();},
+       updateAll: function(nuObject){ terminal= nuObject; init();},
             sing: function(){run();}, //print over screen
            write: function(data){mess+=data;},
        writeLine: function(data){mess+=data+"\n";},
@@ -143,26 +144,21 @@ return{  //THE USER LIBRARY METHODS
       getTaggies: function(){return taggies;},
          getData: function(){return updatedData;}        
 };
-
+//to reinit the audrey view when is updated
 function init(){
-
-
 //modules load
 terminal.colors.default= chalk.white.bold;
 terminal.default="";
-
 //set the colors of the terminal
 checkUserColors(terminal.colors);
-
 bool=true;
 //to control the view properties and colors
-
 properties= Object.getOwnPropertyNames(terminal);
 colors=Object.getOwnPropertyNames(terminal.colors);
-
 }
 
 //SETS THE NEW AUDREY-TWO-MODULES-SEEDS
+//---------------------------------------------------
 function putSeeds(arrayPaths){
   arrayPaths.forEach(function(element){
     var tagy={code:"", path:""};
@@ -173,6 +169,7 @@ function putSeeds(arrayPaths){
 }
 
 //SET ERRORS
+//------------------------------------------------------
 //add error to audrey
 function addControl(ucode, umessage, uaux){
   if(uaux && !terminal.colors.aux) terminal.colors.aux=terminal.colors.info;
@@ -182,14 +179,25 @@ function addControl(ucode, umessage, uaux){
 }
 
 //SETS NEW OBJECTS INTO THE VIEW
-function newObject(objectName, blockPos){
- 
+//-----------------------------------------------------
+//using an object
+function fertilize(objectName, blockPos){
+  if(!objectName.name || !objectName.value || !objectName.color || !blockPos) throw new Error("incorrect call to fertilize method");
     var name= objectName.name.slice(2);
     terminal[name]=objectName.value;
     terminal.colors[name]=objectName.color;
     setOnBlock(objectName.name, blockPos);
     checkUserColors(terminal.colors);
-  console.log(terminal);
+  init();
+}
+//by name, value,color block
+function fertilise(objectName, value, color, blockPos){
+  if(!blockPos) throw new Error("incorrect call to fertilise method");
+    var name= objectName.slice(2);
+    terminal[name]=value;
+    terminal.colors[name]=color;
+    setOnBlock(objectName, blockPos);
+    checkUserColors(terminal.colors);
   init();
 }
 
@@ -207,15 +215,15 @@ function newObject(objectName, blockPos){
 }
 //adds new object to list of print
 function setOnBlock(objectName, blockPos){
-  switch(blockPos){
+  switch(blockPos){//check where to add in the structure
     case 'header':
       terminal.header.push(objectName);
       break;
     case 'body':
-      terminal.header.push(objectName);
+      terminal.body.push(objectName);
       break;
     case 'footer':
-      terminal.header.push(objectName);
+      terminal.footer.push(objectName);
       break; 
   }
 }
@@ -347,22 +355,20 @@ function processReinit(){
 //second version of print-block--> used as init and re-loop builder
 function reRunBlock(block, index, callback){
   growing:
-  for(var i=index; i<block.length; i++){ //iterate over the block [body, header, etck] |
-    //console.log("i"+i);   
-    console.log(block[i]);//                                                           |
-    var code=block[i].substr(0,2);//                                                   |
-    if (code=== ">>") {//The only tagy by deffault                                     |
-      printBrand(block[i]);//                                                          |
-      if(block[i].substr(2)==="default"){// fixes the bug of last element              |
-        recallback();//                                                                |
-      }//                                                                              |
-      if(i===block.length-1){ //                             |               |     |
-            if(callback) callback();//                           |               |     |
-            else recallback();//if it's other                    v               |     |
-          }//     
+  for(var i=index; i<block.length; i++){ //iterate over the block [body, header, etck] *
+    var code=block[i].substr(0,2);//                                            |      |
+    if (code=== ">>") {//The only tag  by deffault                         |    |      |
+      printBrand(block[i]);//                                              |    |      |
+      if(block[i].substr(2)==="default"){// fixes the bug of last element  |    |      |
+        recallback();//                                                    v    |      |
+      }//                                                                       |      |
+      if(i===block.length-1){ //                                 |              |      |
+            if(callback) callback();//                           |              |      |
+            else recallback();//if it's other                    v              |      |
+      }//                                                                       v      |
     }//                                                                                |
     for(var ii=0; ii<taggies.length;ii++){//                                           |
-        //match user taggies and control if there are some seeds  so executes... |     |
+        //match user taggies and control if there are some seeds  so executes... *     |
         if(taggies[ii].code === code){//                                         |     |
           if (code[0]==="x") {//user lib needs all control-->callback-mode       |     |
             interf=true;//                                                       |     |
@@ -395,11 +401,6 @@ function reRunBlock(block, index, callback){
 function printMess(){
   process.stdout.write(mess+"\n\n");
 }
-/*
-function printCBrand(name, tagColor){
-  console.log(); 
-  process.stdout.write(tagColor(name));
-}*/
 //control if the view has the correct properties if not throw error
 function checkProperties(name){
   var bul=false; // boolean to control if its defined the property
@@ -425,8 +426,7 @@ function aError(errorObject){
   else{
     console.log(terminal.colors.error(terminal.symbolProgress+" Error: "+errorObject.message));
     console.log();
-  }
-    
+  }    
 }
 //print success error for debug
 function aSuccess(errorObject){

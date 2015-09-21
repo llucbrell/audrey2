@@ -103,7 +103,7 @@ var myTerminal={header: [ ">>brand","??info","xxask"],
 
 var audrey2= require('./index.js');
 var audrey= audrey2(myTerminal);
-myTerminal.nu="esto es nu";
+myTerminal.nu="esto es UPDATED";
 myTerminal.colors.nu='red';
 myTerminal.header.push(">>nu");
 audrey.writeLine("");
@@ -116,9 +116,10 @@ audrey.seed(["audrey-tables-##",
   
   ,"audrey-sewcolor-??", 
   "audrey-jaskit-xx"]);
-audrey.update(myTerminal);
-console.log(myTerminal);
-audrey.fertilize({name:">>otro nuevo", value:"aaaagh" ,color:'blue'}, "body");
+audrey.updateAll(myTerminal);
+audrey.fertilise("??nuevico","infooOooo", "green", "footer");
+var obj={name:">>otro nuevo", value:"aaaagh" ,color:'blue'};
+audrey.fertilize(obj, "body");
 audrey.feed("W05", "Does it have to be human?", "Feed me!");
 audrey.feed("W05", "Does it have to be mine?", "Feed me!");
 audrey.feed("S002", "The Audrey Two is not a healthy girl.", "Strictly between us - neither is the Audrey One");
