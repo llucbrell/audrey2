@@ -33,31 +33,33 @@
                             ,8:::t8i::C8C1@8CfG   f@G i ;;    ;1                                    
                               tC:t8f::,;C8C1L0f     .G1f..1 G@,1                                    
                                 i0t01::::::f01,f1,iG0;1  Gf    1                                    
-                                   :tC00Lt:.      ;G,       8L1.            *********************************************
-                          .LG:;                    f.  f@@1  t.             *                                           *
-                      ,;.0ttC::::                   L   :t: ,:              *             AUDREY-TWO    v2.0            *
-                 i;ftttttttt8:::;                    .L.  :1.               *                                           *
-             .:Gtttttfttttttttf;::;                                         *                MIT - license              *
-         i8tttttft::Cttttttttt;::::                                         *                                           *
-         tttC,.;;:::::fttttttttt::::;                                       *        Lucas_C/llucbrell/hobbescode       *
-       ,::1Lt8;:::::::tttttttttt;:::f                                       *                                           *
-     8:0tttttttG;::::::;tttttttttt:::;                                      *                    2015                   *
-   CtfttttttttttG::::::::tttttttttt:::i                                     *                                           *
-   ttttttttttttttt:::::::;tttttttttC:::                                     *                                           *
-    Gtttttttttttttt:::::::Gtttttttttf::t                                    *********************************************
+                                   :tC00Lt:.      ;G,       8L1.           
+                          .LG:;                    f.  f@@1  t.            
+                      ,;.0ttC::::                   L   :t: ,:             
+                 i;ftttttttt8:::;                    .L.  :1.              
+             .:Gtttttfttttttttf;::;                                        
+         i8tttttft::Cttttttttt;::::                                        
+         tttC,.;;:::::fttttttttt::::;                                      
+       ,::1Lt8;:::::::tttttttttt;:::f                                      
+     8:0tttttttG;::::::;tttttttttt:::;                                     
+   CtfttttttttttG::::::::tttttttttt:::i                                    
+   ttttttttttttttt:::::::;tttttttttC:::                                    
+    Gtttttttttttttt:::::::Gtttttttttf::t                                   
     .ttttttttttttttt:L.Cii;tttttttttL;f1                                   
      Lttttttttttttttfift,8ttttttttff            
       Gttttttttttttt0fttttttttt,                
        tttttttt1GGttCtLtG8G                     
         .1ft.i,.  t18i           GGGf;;;:::::;::i;:;C  
                 t          .ifi:::;:;1fft11if;L11LLf1itC8fi   
-                   ;  C8LttttCCLttttttttG1ft        1f        
-                   :         t                     G          
-                  ;         ;                 
-                 L        t                   
-               C       t                     
+                   ;  C8LttttCCLttttttttG1ft1f        
+                   :         t                             
+                  ;         ;                 Project-->      AUDREY-TWO v2.0        
+                 L        t                 
+               C       t                      Author---> Lucas_C/llucbrell/hobbescode         
                  8    C                       
-                 ;Ct                          
+                 ;Ct                          License-->      MIT-license        
+  
+
   
 *************************************************************************************
 Copyright (c) 2015 Lucas_C/llucbrell
