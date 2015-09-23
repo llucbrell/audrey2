@@ -59,9 +59,12 @@ audrey.err("W01", "A plant from out Space!");
 //you can show success on the console too
 audrey.err("S001", "I'm Alive!");
 //or pass some auxiliar to print in the same line
-adrey.err("S002", "This is a new kind of plant!", cli.name);
+adrey.err("S002", "This is a new kind of plant!", objectView.advise);
 audrey.encore();
 ```
+## Debugger
+
+Audrey-two debugger treat the erros as strings, never break the flow of your program. Is builded to guide your users throught the use of your program. You can pass two simple strings or two strings and an auxiliar object that will be printed on the console.  
 
 ![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura2.png)
 
@@ -194,7 +197,7 @@ If you want to search for audrey-seeds just look for in npm
 * [audrey-copyright](https://www.npmjs.com/package/audrey-copyright): "string" | get two or more words. First, license's name and then the author, add the copyright symbol 
 * [adrey-sewcolor](https://www.npmjs.com/package/audrey-sewcolor): "string" | change color of the string with the errors
 * [audrey-errsign](https://www.npmjs.com/package/audrey-sewcolor):  "string" | change color symbol with errors you can use it as jasmine/mocha error checker. Write one symbol for each error, using 3 different colors.
-* [audrey-sewcolor-text](https://www.npmjs.com/package/adrey-sewcolor-text): ["three","srting","array"] | three strings that change if there are errors or not. If it's not a color defined uses the success, warning, error colors.
+* [audrey-sewcolor-text](https://www.npmjs.com/package/audrey-sewcolor-text): ["three","srting","array"] | three strings that change if there are errors or not. If it's not a color defined uses the success, warning, error colors.
 * [audrey-tables](https://www.npmjs.com/package/audrey-tables): {array:[["array","of", "arrays"]["each", "array", "for"]["each", "line.", "Colors"]["only", "with", "chalk"]], align: ["letter", "for", "column"]}
 
 You'll find more info and examples, in the readme of every audrey-seed.
@@ -202,12 +205,12 @@ You'll find more info and examples, in the readme of every audrey-seed.
 Take a look at adrey-two with audrey-tables and audrey-copyright
 ![](https://raw.githubusercontent.com/llucbrell/audrey2/master/captura3.png)
 
-## scions
+## Scions
 
 The scions are seeds that require a little more power for running. For example, interactive CLI ask, response.. animations etc,. Audrey opens a forked_process_child and when the scion closes this process, audrey-two recuperates the control. 
 You only have to attach the scion as if it would be a seed but the first character of the taggy must be an "x".
 
-Look at audrey-jaskit module.
+Look at [audrey-jaskit](https://www.npmjs.com/package/audrey-jaskit) module.
 
 ## Colors
 

@@ -3,10 +3,10 @@ var chalk=require('chalk');
 var chalkColor= chalk.blue.bold; 
 //or any other chalk color combination
 
-var myTerminal={header: [ ">>brand","xxask",">>brand"],
-			    brand:
+var myTerminal={header: [ ">>brand","xxask"],
+			    brand:"this is the header of audrye-two\n"
 
-   "                 _                      _           _    _ _   \n"
+   +"                 _                      _           _    _ _   \n"
   +"                | |                 _  (_)         | |  (_) |  \n"
   +"  __ _ _   _  __| |_ __ ___ _   _ _| |_ _  __ _ ___| | ___| |_ \n"
   +" / _` | | | |/ _` | '__/ _ \\ | | |_   _| |/ _` / __| |/ / | __|\n"
@@ -22,27 +22,31 @@ var myTerminal={header: [ ">>brand","xxask",">>brand"],
 
 			    
    
-   			 ,copyright:"MIT Lucas_C / llucbrell",
-   			 body:[">>brand"], 
+   			 ,copyright:"MIT Lucas_C / llucbrell THE AUDREY FOOTER with audrey-copyright",
+   			 body:[ "~1change"], 
 				symbolProgress:"░",
-				change:["success", "warning", "error"],
+				change:["success", "this is the body of audrey-two", "error"],
         derri:"",
 				colors:
 				{
          info: chalk.magenta,
 				  mess:  chalk.bgGreen,
-				  warning: chalk.yellow.bold, 
+				  warning: chalk.magenta.bold, 
 				  error: chalk.red.bold,
 				  success: "green", 
 				  normal:"white",
 				  brandi: chalk.green.bold,
 				  copyright:chalk.blue.bold,
-				  brand: chalk.bgYellow,
-          ask:"yellow"
+				  brand: chalk.bgYellow.bold,
+          ask: chalk.yellow.bold
 				},
 						 
-				 ask:{prompt:"$" , data:["Does it have to be human?","Does it have to be mine?"]},
-				footer:["&2copyright", ">>derri"],
+				 ask:{prompt:"$ " , header: "This is the audrey-jaskit scion", 
+         confirmation: "Everything is all right? \n y or n",
+         to:"yoquese.txt",
+         //format:[{question: 1, before: "", replace:/fine/, put:"Ok", after:""}],
+         data:["Does it have to be human?","Does it have to be mine?"]},
+				footer:["&2copyright"],
 				};
 
 var audrey2= require('./index.js');
