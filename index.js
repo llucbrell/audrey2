@@ -403,14 +403,11 @@ function reRunBlock(block, index, callback){
     var code=block[i].substr(0,2);//                                            |      |
     if (code=== ">>") {//The only tag  by deffault                         |    |      |
       printBrand(block[i]);//                                              |    |      |
-      if(block[i].substr(2)==="default"){
-        if(callback) callback();// // fixes the bug of last element  |    |      |
-        else recallback();//                                                    v    |      |
-      }//  *******************there is the bug... TODO FIX-IT                                                                     |      |
-      if(i===block.length-1){ //                                 |              |      |
-            if(callback) callback();//                           |              |      |
-            else recallback();//if it's other                    v              |      |
-      }//                                                                       v      |
+    /*  if(block[i].substr(2)==="default"){                                |    |      |
+        if(callback) callback();// // fixes the bug of last element        |    |      |
+        else recallback();//                                               |    v      |
+      }//                                                                  |           |
+   */ //                                                                   v           |
     }//                                                                                |
     for(var ii=0; ii<taggies.length;ii++){//                                           |
         //match user taggies and control if there are some seeds  so executes... *     |
@@ -427,19 +424,20 @@ function reRunBlock(block, index, callback){
            var seed= audreySeed();//                                      |      |     |
            var callbackname=block[i];//                                   |      |     |
            seed.grow(callbackname, terminal);//                           V      |     |
-           //if it's the last elemente of the block, so executes |               |     |
-          if(i===block.length-1){ //                             |               |     |
-            if(callback) callback();//                           |               |     |
-            else recallback();//if it's other                    v               |     |
-          }//                                                                    |     |
         }//                                                                      |     |
-    }//                                                                          v     |
+    }//                                                                          |     |
+   //if it's the last element, callback                                          |     |
+     if(i===block.length-1){ //                                    |             |     |
+              if(callback) callback();//                           |             |     |
+              else recallback();//if it's other                    v             |     |
+        }//                                                                      v     |
   }//                                                                                  v
   if(interf){//if the element was a seed then executes interface
     interf=undefined;
     recallback= callback;
     runInterf(block);
   }
+
 }
  
 // direct injection of data after body

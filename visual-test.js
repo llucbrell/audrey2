@@ -3,7 +3,7 @@ var chalk=require('chalk');
 var chalkColor= chalk.blue.bold; 
 //or any other chalk color combination
 
-var myTerminal={header: [ ">>brand","xxask"],
+var myTerminal={header: [ ">>brand","xxask",">>brand"],
 			    brand:
 
    "                 _                      _           _    _ _   \n"
@@ -23,7 +23,7 @@ var myTerminal={header: [ ">>brand","xxask"],
 			    
    
    			 ,copyright:"MIT Lucas_C / llucbrell",
-   			  
+   			 body:[">>brand"], 
 				symbolProgress:"░",
 				change:["success", "warning", "error"],
         derri:"",
