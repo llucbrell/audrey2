@@ -290,15 +290,18 @@ function run(){
    ers=0;
    suc=0;
   //count errors and breaks if something is wrong
-  terminal.errors.forEach(function(element){ //iterates over user-erros injected
+  if(terminal.errors){
+   terminal.errors.forEach(function(element){ //iterates over user-erros injected
     if(element.code[0]=== "E" ||element.code[0]=== "e"){
           ers++;
     }
     else if(element.code[0]=== "W"|| element.code[0]=== "w"){
           warn++;       
-   }
-   else suc++;
+    } 
+    else suc++;
+   
   });
+  } 
   terminal.ers= ers;
   terminal.warn=warn;
   terminal.suc=suc;
@@ -311,7 +314,8 @@ checkCallback("header", function(){
     printMess();
     //displays the error debug audrey-messages
     if(bool!==false){
-     terminal.errors.forEach(function(element){
+  if(terminal.errors){
+   terminal.errors.forEach(function(element){
         if (element.code[0]=== "S" || element.code[0]=== "s"){
           aSuccess(element);
         }
@@ -323,11 +327,28 @@ checkCallback("header", function(){
         }
        });
       }
+     } 
      // Check the footer and print it
      checkCallback("footer", function(){console.log("");});     
     });
   }
   else{
+    if(bool!==false){
+     console.log("\n");
+    if(terminal.errors) {
+      terminal.errors.forEach(function(element){
+        if (element.code[0]=== "S" || element.code[0]=== "s"){
+          aSuccess(element);
+        }
+        else if(element.code[0]=== "W" || element.code[0]=== "w"){
+          aWarning(element);
+        }
+        else if(element.code[0]=== "E" || element.code[0]=== "e"){
+          aError(element);
+        }
+       });
+      }
+     } 
     if (terminal.footer) checkCallback("footer", function(){console.log("");});
   }
   });
@@ -355,6 +376,7 @@ checkCallback("header", function(){
     });
   }
   else{
+
     if (terminal.footer && terminal.footer[0]) checkCallback("footer", function(){console.log("");});
   }
 
@@ -463,6 +485,7 @@ function checkProperties(name){
 //print error message for debug
 function aError(errorObject){
   if(errorObject.aux){
+    if(!terminal.colors.aux) terminal.colors.aux= chalk.white;
     console.log(terminal.colors.error(terminal.symbolProgress+" Error: "+errorObject.message)+ " " +terminal.colors.aux(errorObject.aux));
     console.log();  
   }
@@ -474,6 +497,7 @@ function aError(errorObject){
 //print success error for debug
 function aSuccess(errorObject){
   if(errorObject.aux){
+   if(!terminal.colors.aux) terminal.colors.aux= chalk.white; 
    console.log(terminal.colors.success(terminal.symbolProgress+" Success: "+errorObject.message) +" " +terminal.colors.aux(errorObject.aux));
    console.log();
     }
@@ -485,6 +509,7 @@ function aSuccess(errorObject){
 //print warning error for debug
 function aWarning(errorObject){
   if(errorObject.aux){
+    if(!terminal.colors.aux) terminal.colors.aux= chalk.white;
     console.log(terminal.colors.warning(terminal.symbolProgress+" Warning: "+errorObject.message)+" " +terminal.colors.aux(errorObject.aux));
     console.log();
   }
