@@ -3,17 +3,18 @@ var chalk=require('chalk');
 var chalkColor= chalk.blue.bold; 
 //or any other chalk color combination
 
-var myTerminal={header: [ ">>brand","xxask"],
+var myTerminal={header: [ ">>brand", "xjanim",">>nore"],//,"xxask"],
 			    brand:"this is the header of audrye-two\n"
 
-   +"                 _                      _           _    _ _   \n"
-  +"                | |                 _  (_)         | |  (_) |  \n"
-  +"  __ _ _   _  __| |_ __ ___ _   _ _| |_ _  __ _ ___| | ___| |_ \n"
-  +" / _` | | | |/ _` | '__/ _ \\ | | |_   _| |/ _` / __| |/ / | __|\n"
-  +"| (_| | |_| | (_| | | |  __/ |_| | |_| | | (_| \\__ \\   <| | |_ \n"
-  +" \\__,_|\\__,_|\\__,_|_|  \\___|\\__, |     | |\\__,_|___/_|\\_\\_|\\__|\n"
-  +"                             __/ |    _/ |                     \n"
-  +"                            |___/    |__/                      \n"
++"██     ▄   ██▄   █▄▄▄▄ ▄███▄ ▀▄    ▄ ▄█ █▀▄▀█ ██     ▄▀  ▄███▄     ▄▄▄▄▄  \n" 
++"█ █     █  █  █  █  ▄▀ █▀   ▀  █  █  ██ █ █ █ █ █  ▄▀    █▀   ▀   █     ▀▄\n" 
++"█▄▄█ █   █ █   █ █▀▀▌  ██▄▄     ▀█   ██ █ ▄ █ █▄▄█ █ ▀▄  ██▄▄   ▄  ▀▀▀▀▄  \n" 
++"█  █ █   █ █  █  █  █  █▄   ▄▀  █    ▐█ █   █ █  █ █   █ █▄   ▄▀ ▀▄▄▄▄▀   \n" 
++"   █ █▄ ▄█ ███▀    █   ▀███▀  ▄▀      ▐    █     █  ███  ▀███▀            \n" 
++"  █   ▀▀▀         ▀                       ▀     █                         \n" 
++" ▀                                             ▀                          \n" 
+
+
   
 
 
@@ -25,8 +26,10 @@ var myTerminal={header: [ ">>brand","xxask"],
    			 ,copyright:"MIT Lucas_C / llucbrell THE AUDREY FOOTER with audrey-copyright",
    			 body:[ "~1change"], 
 				symbolProgress:"░",
-				change:["success", "this is the body of audrey-two", "error"],
+				change:["success", "this is the body of audrey-two\n", "error"],
         derri:"",
+        image:"./smile.png",
+        nore:"this is the rest of the header of audrey",
 				colors:
 				{
          info: chalk.magenta,
@@ -37,8 +40,9 @@ var myTerminal={header: [ ">>brand","xxask"],
 				  normal:"white",
 				  brandi: chalk.green.bold,
 				  copyright:chalk.blue.bold,
-				  brand: chalk.bgYellow.bold,
-          ask: chalk.yellow.bold
+				  brand: chalk.green.bold,
+          ask: chalk.yellow.bold,
+          nore: chalk.green.bold
 				},
 						 
 				 ask:{prompt:"$ " , header: "This is the audrey-jaskit scion", 
@@ -47,6 +51,100 @@ var myTerminal={header: [ ">>brand","xxask"],
          //format:[{question: 1, before: "", replace:/fine/, put:"Ok", after:""}],
          data:["Does it have to be human?","Does it have to be mine?"]},
 				footer:["&2copyright"],
+        anim:{frames:
+[
+ "     (__)          \n"       
++"     (@@)_____     \n"       
++"     (OO)    /|\\  \n"     
++"       | |--/ | *  \n"         
++"       w w w  w    \n",   
+
+ "    (__)           \n"       
++"    (@@)_____      \n"       
++"    (OO)    /|\\   \n"     
++"      | |--/ | *   \n"         
++"      w w w  w     \n", 
+
+ "   (__)           \n"       
++"   (@@)_____      \n"       
++"   (OO)    /|\\   \n"     
++"     | |--/ | *   \n"         
++"     w w w  w     \n", 
+
+ "  (__)           \n"       
++"  (@@)_____      \n"       
++"  (OO)    /|\\   \n"     
++"    | |--/ | *   \n"         
++"    w w w  w     \n", 
+
+ " (__)           \n"       
++" (@@)_____      \n"       
++" (OO)    /|\\   \n"     
++"   | |--/ | *   \n"         
++"   w w w  w     \n", 
+
+ " (__)           \n"
++" (@@)           \n"
++" (oo)____       \n"
++" /  \\    )\\   \n"
++" \\  /  e_\\ *  \n"
++"  ww            \n",
+
+
+ " (__)            \n"  
++" (@@)            \n"  
++" (OO)\\          \n"  
++"  /   \\         \n"    
++" w  £__)         \n"
++"                 \n",
+
+ " (__)            \n"  
++" (@~)            \n"  
++" (OO)\\          \n"  
++"  /   \\         \n"    
++" w  £__)         \n"
++"                 \n",
+
+ " (__)          *    *  \n"  
++" (@~)       *     *    \n"  
++" (OO)\\        *    *  \n"  
++"  /   \\           *   \n"    
++" w  £__)      *   *    \n"
++"                 *   * \n",
+
+ " (__)     *  *\n"  
++" (@@)         *\n"  
++" (OO)\\  *  * \n"  
++"  /   \\   ** \n"    
++" w  £__)  *   \n"
++"            * \n",
+
+ " (__)           *\n"  
++" (??)        *   \n"  
++" (OO)\\        * \n"  
++"  /   \\     *   \n"    
++" w  £__)       * \n"
++"             *   \n",
+
+ " (__)       *   \n"  
++" (??)        *  \n"  
++" (OO)\\     *   \n"  
++"  /   \\       *\n"    
++" w  £__)    *   \n"
++"                \n",
+
+
+  " (__)       *      .----. .----..----..----.   .-.   .-..----.\n"
+ +" (xx)        *     | {}  }| {_  | {_  | {_     |  `.'  || {_  \n"
+ +" (OO)\\     *       | {}  }| {__ | {__ | |      | |\\ /| || {__\n"
+ +"  /   \\       *    `----' `----'`----'`-'      `-' ` `-'`----'\n"
+ +" w  £__)    *                                                  \n"
+ +"                *                                              \n",
+],      
+        }
+
+
+
 				};
 
 var audrey2= require('./index.js');
@@ -64,8 +162,8 @@ audrey.seed(["audrey-tables-##",
   "audrey-sewcolor-text-~1",
   
   "audrey-copyright-&2",
-  
- 
+  "audrey-animation-xj",
+ "audrey-images-xi",
   "audrey-jaskit-xx"]);
 //audrey.replant("hello",myTerminal);
 //audrey.fertilise("??nuevico","infooOooo", "green", "footer");

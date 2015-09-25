@@ -17,13 +17,13 @@ This code try to complement other CLI tools like commander, etc., to implement t
 If you bind Audrey with this tools you can get a complete functional controller.
 Commander and others update the model. Audrey give you the power of update view/s in several ways.. 
 
-Audrey it's build as a nodeJS module, precisely as an clousure object factory. In that way, Audrey doesn't inffer in the code of your app.
+![](https://raw.githubusercontent.com/llucbrell/audrey2/master/squeme.png)
 
+Audrey it's build as a nodeJS module, precisely as an clousure object factory. In that way, Audrey doesn't inffer in the code of your app.
 
 Version 1 is now deprecated.
 
 Version two of Audrey introduce the concepts of seed and scions. In that way, now audrey-two is **more flexible and customizable**.
-
 
 ## What it does? 
 
@@ -47,7 +47,7 @@ $ npm install --save audrey-two
 Example
 ```js
 var audrey2= require('audrey-two');
-var audrey= audrey2(myTerminalDisplay);
+var audrey= audrey2('nameOfView', myTerminalDisplay);
 
 //run your command and pass error objects to audrey
 
@@ -76,12 +76,12 @@ You can print all the view, as if you click on a link. The browser load the web-
 Example
 ```js
 var audrey2= require('audrey-two');
-var audrey= audrey2(myTerminalDisplay);
+var audrey= audrey2('nameOfView', myTerminalDisplay);
 
 //run your command and pass error objects to audrey
 
-audrey.feed("FeedMe", objectViewFeed);
-audrey.feed("Seymour", objectVSeymour);
+audrey.feed('FeedMe', objectViewFeed);
+audrey.feed('Seymour', objectVSeymour);
 
 audrey.encore(); //--> print the last replanted view
 //print--> the objectSeymour
@@ -172,8 +172,9 @@ You must to bind the seeds before console printing command (encore/sing) of cour
 
 example binding
 ```js
-audrey.seed("audrey-sewcolor-&0");
+audrey.seed(["audrey-sewcolor-&0"]);
 //now every &0 audrey find, it will associate to this module-component
+//you can pass more than one audrey-seed, as an array of strings
 ```
 
 Every component is more or less as if it was an html tag. They have two characthers (taggy) you put at the beggining of the name. You have to include this taggies only into the header, body and footer's array or audrey that's where audrey will look and if they arn't audrey not see your components.
@@ -210,7 +211,11 @@ Take a look at adrey-two with audrey-tables and audrey-copyright
 The scions are seeds that require a little more power for running. For example, interactive CLI ask, response.. animations etc,. Audrey opens a forked_process_child and when the scion closes this process, audrey-two recuperates the control. 
 You only have to attach the scion as if it would be a seed but the first character of the taggy must be an "x".
 
-Look at [audrey-jaskit](https://www.npmjs.com/package/audrey-jaskit) module.
+Look at this examples..
+
+* [audrey-jaskit](https://www.npmjs.com/package/audrey-jaskit) module.
+* [audrey-images](https://www.npmjs.com/package/audrey-images) module.
+* [audrey-animation](https://www.npmjs.com/package/audrey-animation) module.
 
 ## Colors
 
@@ -225,7 +230,7 @@ Example
   colors:{
   brand: "red",
   advise: "green",
-  ?&mycopyright:"blue"
+  mycopyright:"blue"
   }}
 ```
 
@@ -242,6 +247,13 @@ Example
   var red= chalk.red.bold.underline;
   view.colors.advise= red;
 ```
+
+## More  usefull methods
+
+* replant('nameOfView') --> sets a view ready for print with encore
+* getErrors() --> return an array with the errors injected to audrey
+* getViews() --> return the views which whom you feed audrey
+* getTaggies() --> return the taggies that audrey have associated
 
 ## Dependencies
 
