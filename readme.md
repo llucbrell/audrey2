@@ -270,7 +270,6 @@ Help Audrey to grow with human blood!!
 
 Write your own [seed](https://github.com/llucbrell/audrey-seed-template) or scion, share it in npm and.. you will never be a dentist!
 
-
 ## License
 
 MIT © [Lucas_C/llucbrell](https://github.com/llucbrell)
