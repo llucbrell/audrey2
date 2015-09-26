@@ -108,7 +108,8 @@ audrey.writeLine(data);
 //write where you decide, on the header, body or footer
 audrey.fertilise("nameOfproperty","value","color", "blockStructure");
 audrey.fertilize(object, "blockStructure");
-//object{name:"??audreyInformation",
+//object example
+  object{name:"??audreyInformation",
          value: "this is a CLI view controller", 
          color:"yellow" };
 ```

@@ -484,6 +484,7 @@ function checkProperties(name){
 
 //print error message for debug
 function aError(errorObject){
+  if(!terminal.symbolProgress) terminal.symbolProgress="? ";
   if(errorObject.aux){
     if(!terminal.colors.aux) terminal.colors.aux= chalk.white;
     console.log(terminal.colors.error(terminal.symbolProgress+" Error: "+errorObject.message)+ " " +terminal.colors.aux(errorObject.aux));
@@ -496,6 +497,7 @@ function aError(errorObject){
 }
 //print success error for debug
 function aSuccess(errorObject){
+  if(!terminal.symbolProgress) terminal.symbolProgress="? ";
   if(errorObject.aux){
    if(!terminal.colors.aux) terminal.colors.aux= chalk.white; 
    console.log(terminal.colors.success(terminal.symbolProgress+" Success: "+errorObject.message) +" " +terminal.colors.aux(errorObject.aux));
@@ -508,6 +510,7 @@ function aSuccess(errorObject){
 }
 //print warning error for debug
 function aWarning(errorObject){
+  if(!terminal.symbolProgress) terminal.symbolProgress="? ";
   if(errorObject.aux){
     if(!terminal.colors.aux) terminal.colors.aux= chalk.white;
     console.log(terminal.colors.warning(terminal.symbolProgress+" Warning: "+errorObject.message)+" " +terminal.colors.aux(errorObject.aux));
