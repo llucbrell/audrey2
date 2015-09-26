@@ -268,7 +268,7 @@ People and plants really appreciate your great code!
 
 Help Audrey to grow with human blood!!
 
-Write your own seed or scion, share it in npme and.. you will never be a dentist!
+Write your own [seed](https://github.com/llucbrell/audrey-seed-template) or scion, share it in npm and.. you will never be a dentist!
 
 
 ## License
