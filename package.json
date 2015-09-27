@@ -1,43 +1,43 @@
 {
-  "name": "audrey-two",
-  "version": "2.1.0",
-  "description": "View Control for Command Line Interface",
-  "main": "index.js",
-  "scripts": {
-    "test": "grunt --verbose"
-  },
-  "keywords": [
-    "CLI",
-    "command",
-    "console",
-    "view",
-    "write",
-    "terminal",
-    "audrey",
-    "audrey-two",
-    "audrey2",
-    "controller",
-    "control",
-    "stylish",
-    "style"
-  ],
-  "author": "Lucas_C/llucbrell",
-  "license": "MIT",
-  "dependencies": {
-    "chalk": "^1.1.1"
-  },
-  "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-jshint": "^0.11.2",
-    "grunt-shell": "^1.1.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/llucbrell/audrey2.git"
-  },
-  "bugs": {
-    "url": "https://github.com/llucbrell/audrey2/issues"
-  },
-  "homepage": "https://github.com/llucbrell/audrey2#readme"
+	"name": "audrey-two",
+	"version": "2.1.0",
+	"description": "View Control for Command Line Interface",
+	"main": "index.js",
+	"scripts": {
+		"test": "grunt --verbose"
+	},
+	"keywords": [
+		"CLI",
+		"command",
+		"console",
+		"view",
+		"write",
+		"terminal",
+		"audrey",
+		"audrey-two",
+		"audrey2",
+		"controller",
+		"control",
+		"stylish",
+		"style"
+	],
+	"author": "Lucas_C/llucbrell",
+	"license": "MIT",
+	"dependencies": {
+		"chalk": "^1.1.1"
+	},
+	"devDependencies": {
+		"grunt": "^0.4.5",
+		"grunt-cli": "^0.1.13",
+		"grunt-contrib-jshint": "^0.11.2",
+		"grunt-shell": "^1.1.2"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/llucbrell/audrey2.git"
+	},
+	"bugs": {
+		"url": "https://github.com/llucbrell/audrey2/issues"
+	},
+	"homepage": "https://github.com/llucbrell/audrey2#readme"
 }

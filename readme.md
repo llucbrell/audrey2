@@ -17,8 +17,6 @@ This code try to complement other CLI tools like commander, etc., to implement t
 If you bind Audrey with this tools you can get a complete functional controller.
 Commander and others update the model. Audrey give you the power of update view/s in several ways.. 
 
-![](https://raw.githubusercontent.com/llucbrell/audrey2/master/squeme.png)
-
 Audrey it's build as a nodeJS module, precisely as an clousure object factory. In that way, Audrey doesn't inffer in the code of your app.
 
 Version 1 is now deprecated.
@@ -28,6 +26,8 @@ Version two of Audrey introduce the concepts of seed and scions. In that way, no
 ## What it does? 
 
 Feed Audrey with object errors and data extracted from your command actions. This carnivorous plant get charge of the output console display and give to your users a little of sugar rather than only an ugly output option. 
+
+![](https://raw.githubusercontent.com/llucbrell/audrey2/master/squeme.png)
 
 You can combine lots of views by passing them to audrey. So you get more control of what you display and the way you do. Of course, using audrey, you don't need to think so much about code-flow.
 
